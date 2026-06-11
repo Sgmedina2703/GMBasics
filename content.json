@@ -395,14 +395,14 @@
     {
       "id": "futbol",
       "name": "Fútbol",
-      "c1": "#41604D",
-      "c2": "#C8D8CD",
+      "c1": "#41604d",
+      "c2": "#c8d8cd",
       "mascot": "sport",
       "desc": {
         "es": "La pasión del juego con corte premium. Jerseys y básicos para la afición con estilo.",
         "en": "The passion of the game, premium cut. Jerseys and basics for stylish fans."
       },
-      "img": ""
+      "img": "images/col-futbol-1781155262076.jpg"
     }
   ],
   "products": [
