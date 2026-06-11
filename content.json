@@ -13,7 +13,8 @@
     "brandName": "GM Basics",
     "pageTitle": "",
     "logoImg": "images/logo-1781157648527.png",
-    "heroImg": ""
+    "heroImg": "",
+    "logoImgDark": "images/logo-dark-1781157952284.png"
   },
   "sizes": [
     "S",
