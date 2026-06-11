@@ -9,7 +9,11 @@
     "tiktok": "",
     "copyright": "© 2026 GM Basics ",
     "freeShip": 0,
-    "shipCost": 0
+    "shipCost": 0,
+    "brandName": "GM Basics",
+    "pageTitle": "",
+    "logoImg": "images/logo-1781157648527.png",
+    "heroImg": ""
   },
   "sizes": [
     "S",
@@ -881,5 +885,35 @@
       },
       "img": ""
     }
-  ]
+  ],
+  "theme": {
+    "colors": {
+      "light": {
+        "bg": "#F5F3EF",
+        "surface": "#FFFFFF",
+        "surface2": "#EBE7E0",
+        "ink": "#1B1812",
+        "muted": "#756E64",
+        "accent": "#8A6E4B",
+        "accentSoft": "#ECE5D9",
+        "accentInk": "#FAF7F1"
+      },
+      "dark": {
+        "bg": "#121110",
+        "surface": "#1B1916",
+        "surface2": "#26221C",
+        "ink": "#ECE8E1",
+        "muted": "#9C958A",
+        "accent": "#B49A72",
+        "accentSoft": "#2A251D",
+        "accentInk": "#14110C"
+      }
+    },
+    "fonts": {
+      "display": "Archivo",
+      "body": "Manrope",
+      "mono": "Space Mono"
+    },
+    "radius": "normal"
+  }
 }
