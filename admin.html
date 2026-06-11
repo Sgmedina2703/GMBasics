@@ -5,11 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GM Basics — Panel de administración</title>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link id="preview-fonts" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Anton&family=Montserrat:wght@100..900&family=Oswald:wght@200..700&family=Poppins:wght@400;700;900&family=Space+Grotesk:wght@300..700&family=Playfair+Display:wght@400..900&family=DM+Serif+Display&family=Raleway:wght@100..900&family=Lora:wght@400..700&family=Inter:wght@100..900&family=Open+Sans:wght@300..800&family=Nunito:wght@200..900&family=Work+Sans:wght@100..900&family=Lato:wght@400;700;900&family=Roboto:wght@100..900&family=Karla:wght@200..800&family=Quicksand:wght@300..700&family=Space+Mono:wght@400;700&family=IBM+Plex+Mono:wght@400;700&family=JetBrains+Mono:wght@100..800&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#F5F3EF;--surface:#FFFFFF;--surface-2:#EBE7E0;--ink:#1B1812;--muted:#756E64;
   --line:rgba(27,24,18,.13);--accent:#8A6E4B;--accent-soft:#ECE5D9;--accent-ink:#FAF7F1;
-  --ok:#2F7A4D;--err:#A33B2E;--r:14px;
+  --ok:#2F7A4D;--err:#A33B2E;--r:14px;--sb:248px;
   --shadow:0 14px 40px -16px rgba(24,19,12,.25);
 }
 *{margin:0;padding:0;box-sizing:border-box}
@@ -18,11 +19,12 @@ h1,h2,h3{font-family:"Archivo",sans-serif;letter-spacing:-.02em}
 button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 input,select,textarea{font:inherit;color:var(--ink);width:100%;background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:.65rem .85rem}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)}
-textarea{resize:vertical;min-height:64px}
+input[type=color]{height:42px;padding:.2rem;cursor:pointer}
+textarea{resize:vertical;min-height:62px}
 label{display:block;font-weight:700;font-size:.82rem;margin:.9rem 0 .35rem}
 label small{font-weight:500;color:var(--muted)}
 .hidden{display:none!important}
-.btn{display:inline-flex;align-items:center;gap:.5rem;justify-content:center;padding:.7rem 1.3rem;border-radius:999px;font-weight:700;font-size:.9rem;border:1.5px solid transparent;transition:.2s}
+.btn{display:inline-flex;align-items:center;gap:.5rem;justify-content:center;padding:.7rem 1.3rem;border-radius:999px;font-weight:700;font-size:.9rem;border:1.5px solid transparent;transition:.2s;white-space:nowrap}
 .btn:active{transform:scale(.97)}
 .btn-accent{background:var(--accent);color:var(--accent-ink)}
 .btn-accent:hover{filter:brightness(1.07)}
@@ -32,20 +34,45 @@ label small{font-weight:500;color:var(--muted)}
 .btn-sm{padding:.45rem .9rem;font-size:.82rem}
 .btn-danger{color:var(--err);border-color:var(--line)}
 .btn-danger:hover{border-color:var(--err)}
-.btn[disabled]{opacity:.5;cursor:not-allowed}
-.topbar{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.topbar-inner{max-width:1100px;margin:0 auto;padding:.8rem 4%;display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
-.brand{display:flex;align-items:center;gap:.55rem;font-family:"Archivo",sans-serif;font-weight:900;font-size:1.1rem}
-.brand svg{width:26px;height:26px}
-.brand .tag{font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:.15rem .6rem;margin-left:.3rem}
+/* ---------- sidebar ---------- */
+.sidebar{
+  position:fixed;inset:0 auto 0 0;width:var(--sb);background:var(--surface);
+  border-right:1px solid var(--line);z-index:60;display:flex;flex-direction:column;
+  transition:transform .3s cubic-bezier(.16,1,.3,1);
+}
+.sb-head{padding:1.1rem 1.2rem;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:.55rem}
+.sb-head svg{width:26px;height:26px;flex:none}
+.sb-head b{font-family:"Archivo",sans-serif;font-size:1.05rem}
+.sb-head .tag{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:.12rem .5rem;margin-left:auto}
+.sb-nav{flex:1;overflow-y:auto;padding:.8rem .7rem 2rem}
+.sb-nav details{margin-bottom:.35rem}
+.sb-nav summary{
+  list-style:none;cursor:pointer;font-size:.7rem;font-weight:800;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);padding:.6rem .55rem .35rem;display:flex;align-items:center;gap:.4rem;
+  user-select:none;
+}
+.sb-nav summary::-webkit-details-marker{display:none}
+.sb-nav summary::after{content:"▾";margin-left:auto;transition:transform .25s;font-size:.8rem}
+.sb-nav details:not([open]) summary::after{transform:rotate(-90deg)}
+.sb-link{
+  display:flex;width:100%;text-align:left;padding:.55rem .75rem;border-radius:9px;
+  font-weight:600;font-size:.9rem;gap:.5rem;align-items:center;transition:background .15s;
+}
+.sb-link:hover{background:var(--surface-2)}
+.sb-link.on{background:var(--ink);color:var(--bg)}
+.sb-foot{padding: .9rem 1rem;border-top:1px solid var(--line);font-size:.74rem;color:var(--muted)}
+/* ---------- main ---------- */
+.main{margin-left:var(--sb);min-height:100vh}
+.topbar{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar-inner{padding:.75rem 3%;display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}
+.burger{display:none;width:40px;height:40px;border:1.5px solid var(--line);border-radius:10px;font-size:1.1rem}
+#sec-title{font-size:1.05rem}
 .top-actions{margin-left:auto;display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
 .dot{width:9px;height:9px;border-radius:50%;background:#E0B13E;display:inline-block}
-.wrap{max-width:1100px;margin:0 auto;padding:1.6rem 4% 5rem}
-.tabs{display:flex;gap:.4rem;margin:0 0 1.6rem;flex-wrap:wrap}
-.tab{padding:.55rem 1.15rem;border-radius:999px;font-weight:700;font-size:.9rem;border:1.5px solid var(--line)}
-.tab.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:1.2rem}
-.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+.wrap{max-width:980px;margin:0 auto;padding:1.6rem 3% 5rem}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:1.3rem;margin-bottom:1.2rem}
+.card h3{font-size:1.02rem;margin-bottom:.2rem;color:var(--accent)}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(225px,1fr))}
 .item-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column}
 .item-thumb{aspect-ratio:4/3;background:var(--surface-2);display:grid;place-items:center;overflow:hidden;position:relative}
 .item-thumb img{width:100%;height:100%;object-fit:cover}
@@ -55,11 +82,11 @@ label small{font-weight:500;color:var(--muted)}
 .item-body{padding:.85rem .95rem;display:flex;flex-direction:column;gap:.3rem;flex:1}
 .item-body b{font-size:.95rem}
 .item-body .sub{color:var(--muted);font-size:.8rem}
-.item-actions{display:flex;gap:.4rem;margin-top:.7rem}
-.add-card{border:2px dashed var(--line);border-radius:var(--r);display:grid;place-items:center;min-height:170px;color:var(--muted);font-weight:700;transition:.2s}
+.item-actions{display:flex;gap:.4rem;margin-top:.7rem;flex-wrap:wrap}
+.add-card{border:2px dashed var(--line);border-radius:var(--r);display:grid;place-items:center;min-height:170px;color:var(--muted);font-weight:700;transition:.2s;padding:1rem;text-align:center}
 .add-card:hover{border-color:var(--accent);color:var(--accent)}
-.section-title{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin:2rem 0 1rem;flex-wrap:wrap}
-.section-title h2{font-size:1.25rem}
+.section-title{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin:0 0 1.1rem;flex-wrap:wrap}
+.section-title h2{font-size:1.3rem}
 .hint{color:var(--muted);font-size:.85rem;line-height:1.55}
 .overlay{position:fixed;inset:0;background:rgba(12,9,5,.5);z-index:90;display:grid;place-items:center;padding:1rem;backdrop-filter:blur(3px)}
 .modal{background:var(--bg);border-radius:18px;box-shadow:var(--shadow);width:min(680px,100%);max-height:92vh;overflow-y:auto;padding:1.8rem}
@@ -67,20 +94,20 @@ label small{font-weight:500;color:var(--muted)}
 .modal .sub{color:var(--muted);font-size:.85rem}
 .modal-foot{display:flex;gap:.6rem;justify-content:flex-end;margin-top:1.6rem;position:sticky;bottom:0;background:var(--bg);padding-top:.8rem}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:0 1rem}
-@media(max-width:600px){.row2{grid-template-columns:1fr}}
+.row4{display:grid;grid-template-columns:repeat(4,1fr);gap:0 1rem}
+@media(max-width:640px){.row2{grid-template-columns:1fr}.row4{grid-template-columns:1fr 1fr}}
 .img-edit{display:flex;gap:1rem;align-items:flex-start;margin-top:.3rem;flex-wrap:wrap}
 .img-edit .prev{width:120px;height:120px;border-radius:12px;background:var(--surface-2);border:1px solid var(--line);overflow:hidden;display:grid;place-items:center;color:var(--muted);font-size:.7rem;text-align:center}
 .img-edit .prev img{width:100%;height:100%;object-fit:cover}
 .chkrow{display:flex;gap:.9rem;flex-wrap:wrap;align-items:center;padding:.4rem 0}
 .chkrow label{display:inline-flex;align-items:center;gap:.35rem;margin:0;font-weight:600}
 .chkrow input{width:auto}
-.txt-group{margin-bottom:2rem}
-.txt-group h3{font-size:1.05rem;margin-bottom:.8rem;color:var(--accent)}
 .txt-row{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:.9rem 1rem;margin-bottom:.7rem}
-.txt-row .k{font-size:.72rem;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:.5rem}
+.txt-row .k{font-size:.78rem;font-weight:800;margin-bottom:.5rem}
+.txt-row .kk{font-size:.62rem;color:var(--muted);font-weight:600;letter-spacing:.06em;margin-left:.4rem}
 .txt-row .pair{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
 @media(max-width:700px){.txt-row .pair{grid-template-columns:1fr}}
-.txt-row .lang-lab{font-size:.68rem;font-weight:800;color:var(--accent);margin-bottom:.25rem}
+.txt-row .lang-lab{font-size:.66rem;font-weight:800;color:var(--accent);margin-bottom:.25rem;letter-spacing:.08em}
 .toast{position:fixed;bottom:1.4rem;left:50%;transform:translate(-50%,160%);background:var(--ink);color:var(--bg);border-radius:999px;padding:.8rem 1.5rem;font-weight:700;font-size:.9rem;z-index:120;transition:transform .4s cubic-bezier(.16,1,.3,1);max-width:92vw}
 .toast.show{transform:translate(-50%,0)}
 .toast.err{background:var(--err);color:#fff}
@@ -91,60 +118,59 @@ label small{font-weight:500;color:var(--muted)}
 .pub-log .okk{color:var(--ok);font-weight:700}
 .pub-log .errr{color:var(--err);font-weight:700}
 .banner{background:var(--accent-soft);border:1px solid var(--accent);border-radius:12px;padding:.8rem 1.1rem;font-size:.88rem;margin-bottom:1.4rem;line-height:1.55}
+.color-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 1.2rem}
+@media(max-width:600px){.color-grid{grid-template-columns:1fr}}
+.font-preview{border:1.5px dashed var(--line);border-radius:12px;padding:1.2rem;margin-top:1rem}
+.font-preview .fp-title{font-size:1.7rem;font-weight:900;letter-spacing:-.02em;line-height:1.1}
+.font-preview .fp-body{margin-top:.5rem;line-height:1.6;font-size:.95rem}
+.font-preview .fp-mono{margin-top:.5rem;font-size:.9rem}
+@media(max-width:900px){
+  .sidebar{transform:translateX(-105%)}
+  .sidebar.open{transform:none;box-shadow:var(--shadow)}
+  .main{margin-left:0}
+  .burger{display:grid;place-items:center}
+}
 </style>
 </head>
 <body>
 
-<!-- ===== CONFIGURACIÓN ===== -->
 <div id="setup" class="hidden">
   <div class="setup-card">
     <h1>🐾 Panel GM Basics</h1>
     <p class="hint">Conecta el panel con tu sitio en GitHub. Solo se hace una vez: los datos quedan guardados en este navegador.</p>
-    <div class="steps">
-      <b>¿Primera vez?</b> Sigue la guía <b>README.md</b> incluida con los archivos del sitio: ahí dice cómo crear el repositorio, activar GitHub Pages y generar tu token.
-    </div>
-    <label>Usuario de GitHub</label>
-    <input id="cfg-owner" placeholder="ej: sebastianguardia">
-    <label>Nombre del repositorio</label>
-    <input id="cfg-repo" placeholder="ej: gm-basics">
-    <label>Token de acceso <small>(se guarda solo en tu navegador)</small></label>
-    <input id="cfg-token" type="password" placeholder="github_pat_…">
-    <label>Rama <small>(déjalo en main si no estás seguro)</small></label>
-    <input id="cfg-branch" value="main">
-    <div style="margin-top:1.4rem;display:flex;gap:.6rem">
-      <button class="btn btn-accent" style="flex:1" onclick="saveCfg()">Conectar</button>
-    </div>
+    <div class="steps"><b>¿Primera vez?</b> Sigue la guía <b>README.md</b> incluida con los archivos del sitio.</div>
+    <label>Usuario de GitHub</label><input id="cfg-owner" placeholder="ej: Sgmedina2703">
+    <label>Nombre del repositorio</label><input id="cfg-repo" placeholder="ej: gm-basics">
+    <label>Token de acceso <small>(se guarda solo en tu navegador)</small></label><input id="cfg-token" type="password" placeholder="github_pat_…">
+    <label>Rama <small>(déjalo en main si no estás seguro)</small></label><input id="cfg-branch" value="main">
+    <div style="margin-top:1.4rem"><button class="btn btn-accent" style="width:100%" onclick="saveCfg()">Conectar</button></div>
     <p id="setup-msg" class="hint" style="margin-top:1rem"></p>
   </div>
 </div>
 
-<!-- ===== PANEL ===== -->
 <div id="panel" class="hidden">
-  <div class="topbar"><div class="topbar-inner">
-    <span class="brand">
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-head">
       <svg viewBox="0 0 40 40"><g fill="#8A6E4B"><ellipse cx="13" cy="11" rx="4.5" ry="5.5"/><ellipse cx="27" cy="11" rx="4.5" ry="5.5"/><ellipse cx="6.5" cy="20" rx="3.8" ry="4.6"/><ellipse cx="33.5" cy="20" rx="3.8" ry="4.6"/><path d="M20 17c6.5 0 11 5 11 10.5 0 4.5-3.6 7-7.2 5.8-2.4-.8-5.2-.8-7.6 0C12.6 34.5 9 32 9 27.5 9 22 13.5 17 20 17z"/></g></svg>
-      GM Basics <span class="tag">Panel</span>
-    </span>
-    <div class="top-actions">
-      <a class="btn btn-ghost btn-sm" id="site-link" target="_blank" rel="noopener">Ver sitio ↗</a>
-      <button class="btn btn-ghost btn-sm" onclick="reloadRemote()" title="Descarta cambios no publicados y recarga lo que está en línea">Recargar</button>
-      <button class="btn btn-ghost btn-sm" onclick="openSetup()">Configuración</button>
-      <button class="btn btn-accent" id="pub-btn" onclick="publish()">Publicar cambios</button>
+      <b>GM Basics</b><span class="tag">Panel</span>
     </div>
-  </div></div>
-
-  <div class="wrap">
-    <div class="banner" id="dirty-banner" style="display:none">
-      ✏️ Tienes cambios sin publicar. Se verán en la web solo cuando presiones <b>Publicar cambios</b>.
+    <nav class="sb-nav" id="sb-nav"></nav>
+    <div class="sb-foot">Edita → Guarda → <b>Publica</b>.<br>Nada cambia en la web hasta publicar.</div>
+  </aside>
+  <div class="main">
+    <div class="topbar"><div class="topbar-inner">
+      <button class="burger" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+      <h2 id="sec-title">Productos</h2>
+      <div class="top-actions">
+        <a class="btn btn-ghost btn-sm" id="site-link" target="_blank" rel="noopener">Ver sitio ↗</a>
+        <button class="btn btn-ghost btn-sm" onclick="reloadRemote()" title="Descarta cambios sin publicar y recarga lo que está en línea">Recargar</button>
+        <button class="btn btn-accent" id="pub-btn" onclick="publish()">Publicar cambios</button>
+      </div>
+    </div></div>
+    <div class="wrap">
+      <div class="banner" id="dirty-banner" style="display:none">✏️ Tienes cambios sin publicar. Se verán en la web cuando presiones <b>Publicar cambios</b>.</div>
+      <div id="sec-content"></div>
     </div>
-    <div class="tabs">
-      <button class="tab on" data-tab="products" onclick="setTab('products')">Productos</button>
-      <button class="tab" data-tab="collections" onclick="setTab('collections')">Colecciones</button>
-      <button class="tab" data-tab="texts" onclick="setTab('texts')">Textos</button>
-      <button class="tab" data-tab="gmkt" onclick="setTab('gmkt')">GMKT</button>
-      <button class="tab" data-tab="settings" onclick="setTab('settings')">Ajustes</button>
-    </div>
-    <div id="tab-content"></div>
   </div>
 </div>
 
@@ -157,8 +183,9 @@ const $ = s=>document.querySelector(s);
 const $$ = s=>document.querySelectorAll(s);
 const esc = s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 let cfg = null; try{ cfg = JSON.parse(localStorage.getItem("gm_cfg")||"null"); }catch(e){}
-let content = null, sha = null, dirty = false, tab = "products";
-let pending = {}; // ruta -> {b64, preview}
+let content = null, sha = null, dirty = false, sec = "products";
+let pending = {};
+let prodFilter = null;
 
 let toastTimer;
 function toast(msg, err){
@@ -227,12 +254,33 @@ async function saveCfg(){
     localStorage.setItem("gm_cfg", JSON.stringify(c));
     $("#setup-msg").textContent = "";
     await load();
-  }catch(e){
-    $("#setup-msg").textContent = "❌ " + e.message;
-  }
+  }catch(e){ $("#setup-msg").textContent = "❌ " + e.message; }
 }
 
-/* ================= cargar contenido ================= */
+/* ================= tema por defecto ================= */
+const THEME_DEFAULT = {
+  colors:{
+    light:{bg:"#F5F3EF",surface:"#FFFFFF",surface2:"#EBE7E0",ink:"#1B1812",muted:"#756E64",accent:"#8A6E4B",accentSoft:"#ECE5D9",accentInk:"#FAF7F1"},
+    dark:{bg:"#121110",surface:"#1B1916",surface2:"#26221C",ink:"#ECE8E1",muted:"#9C958A",accent:"#B49A72",accentSoft:"#2A251D",accentInk:"#14110C"}
+  },
+  fonts:{display:"Archivo",body:"Manrope",mono:"Space Mono"},
+  radius:"normal"
+};
+function ensureDefaults(){
+  const s = content.settings;
+  ["brandName","pageTitle","logoImg","logoImgDark","heroImg"].forEach(k=>{ if(s[k]===undefined) s[k] = (k==="brandName"?"GM Basics":""); });
+  if(!content.theme) content.theme = JSON.parse(JSON.stringify(THEME_DEFAULT));
+  const t = content.theme;
+  if(!t.colors) t.colors = JSON.parse(JSON.stringify(THEME_DEFAULT.colors));
+  ["light","dark"].forEach(m=>{
+    if(!t.colors[m]) t.colors[m] = {};
+    Object.keys(THEME_DEFAULT.colors[m]).forEach(k=>{ if(!t.colors[m][k]) t.colors[m][k] = THEME_DEFAULT.colors[m][k]; });
+  });
+  if(!t.fonts) t.fonts = JSON.parse(JSON.stringify(THEME_DEFAULT.fonts));
+  if(!t.radius) t.radius = "normal";
+}
+
+/* ================= cargar ================= */
 async function load(){
   try{
     const r = await api("/contents/content.json?ref="+cfg.branch);
@@ -242,11 +290,13 @@ async function load(){
     const j = await r.json();
     sha = j.sha;
     content = JSON.parse(deb64utf8(j.content));
+    ensureDefaults();
     $("#setup").classList.add("hidden");
     $("#panel").classList.remove("hidden");
     $("#site-link").href = siteUrl();
     clearDirty();
-    setTab(tab);
+    buildNav();
+    go(sec);
     toast("Contenido cargado ✓");
   }catch(e){
     openSetup();
@@ -258,33 +308,104 @@ function reloadRemote(){
   load();
 }
 
-/* ================= pestañas ================= */
-function setTab(t2){
-  tab = t2;
-  $$(".tab").forEach(b=>b.classList.toggle("on", b.dataset.tab===t2));
-  const r = {products:renderProducts, collections:renderCollections, texts:renderTexts, gmkt:renderGmkt, settings:renderSettings}[t2];
-  $("#tab-content").innerHTML = "";
-  r();
+/* ================= navegación lateral ================= */
+const NAV = [
+  ["🏠 Inicio", [
+    ["portada","Portada"],
+    ["destacados","Destacados"],
+    ["historia","Nuestra historia"]
+  ]],
+  ["🛍️ Tienda", [
+    ["products","Productos"],
+    ["collections","Colecciones"],
+    ["envios","Envíos y tallas"],
+    ["tienda-textos","Textos de tienda"],
+    ["carrito","Carrito y compra"]
+  ]],
+  ["✨ GMKT", [
+    ["gmkt-pagina","Textos de la página"],
+    ["servicios","Servicios"],
+    ["planes","Planes"],
+    ["portafolio","Portafolio"]
+  ]],
+  ["🎨 Apariencia", [
+    ["marca","Marca y logo"],
+    ["colores","Colores"],
+    ["tipografia","Tipografía"]
+  ]],
+  ["⚙️ General", [
+    ["contacto","Contacto y redes"],
+    ["navegacion","Menú de navegación"],
+    ["footer","Pie de página"],
+    ["cuenta","Cuenta de usuario"],
+    ["mensajes","Mensajes y avisos"],
+    ["github","Conexión GitHub"]
+  ]]
+];
+function buildNav(){
+  $("#sb-nav").innerHTML = NAV.map(([g, items])=>`
+    <details open>
+      <summary>${g}</summary>
+      ${items.map(([id,lab])=>`<button class="sb-link" data-sec="${id}" onclick="go('${id}')">${lab}</button>`).join("")}
+    </details>`).join("");
 }
-const colById = id=>content.collections.find(c=>c.id===id);
+const SEC_TITLES = {};
+NAV.forEach(([g,items])=>items.forEach(([id,lab])=>SEC_TITLES[id]=lab));
+function go(id){
+  sec = id;
+  if(id!=="products") prodFilter = null;
+  $$(".sb-link").forEach(b=>b.classList.toggle("on", b.dataset.sec===id));
+  $("#sec-title").textContent = SEC_TITLES[id]||id;
+  $("#sidebar").classList.remove("open");
+  $("#sec-content").innerHTML = "";
+  SECTIONS[id]();
+  window.scrollTo({top:0});
+}
+
+/* ================= textos genéricos ================= */
+function txtEdit(el){
+  content.i18n[el.dataset.l][el.dataset.k] = el.value;
+  setDirty();
+}
+function textRows(filter, friendly={}){
+  const keys = Object.keys(content.i18n.es).filter(filter);
+  return keys.map(k=>`
+    <div class="txt-row">
+      <div class="k">${esc(friendly[k]||k)}<span class="kk">${friendly[k]?k:""}</span></div>
+      <div class="pair">
+        <div><div class="lang-lab">ESPAÑOL</div><textarea data-k="${esc(k)}" data-l="es" oninput="txtEdit(this)">${esc(content.i18n.es[k])}</textarea></div>
+        <div><div class="lang-lab">INGLÉS</div><textarea data-k="${esc(k)}" data-l="en" oninput="txtEdit(this)">${esc(content.i18n.en[k]||"")}</textarea></div>
+      </div>
+    </div>`).join("");
+}
+function textSection(hint, filter, friendly){
+  $("#sec-content").innerHTML = `
+    <div class="section-title"><span class="hint">${hint} Se guarda mientras escribes; recuerda publicar al final.</span></div>
+    ${textRows(filter, friendly)}`;
+}
+function setEdit(el, num){
+  content.settings[el.dataset.s] = num ? (parseFloat(el.value)||0) : el.value;
+  setDirty();
+}
 
 /* ================= imágenes ================= */
-function pickImage(cb){
+function pickImage(cb, opts={}){
   const inp = document.createElement("input");
   inp.type = "file"; inp.accept = "image/*";
   inp.onchange = ()=>{
     const f = inp.files[0]; if(!f) return;
+    const usePng = !!opts.png && f.type === "image/png";
     const rd = new FileReader();
     rd.onload = ev=>{
       const im = new Image();
       im.onload = ()=>{
-        let w = im.width, h = im.height; const M = 1200;
+        let w = im.width, h = im.height; const M = opts.max || 1200;
         if(w>M || h>M){ const k = Math.min(M/w, M/h); w = Math.round(w*k); h = Math.round(h*k); }
         const cv = document.createElement("canvas"); cv.width = w; cv.height = h;
         const ctx = cv.getContext("2d");
-        ctx.fillStyle = "#fff"; ctx.fillRect(0,0,w,h);
+        if(!usePng){ ctx.fillStyle = "#fff"; ctx.fillRect(0,0,w,h); }
         ctx.drawImage(im,0,0,w,h);
-        cb(cv.toDataURL("image/jpeg",.85));
+        cb(usePng ? cv.toDataURL("image/png") : cv.toDataURL("image/jpeg",.85), usePng ? "png" : "jpg");
       };
       im.src = ev.target.result;
     };
@@ -292,9 +413,36 @@ function pickImage(cb){
   };
   inp.click();
 }
-/* foto temporal del modal abierto */
-let modalImg = null; // {dataURL} | {remove:true} | null
-
+function sImgPick(key, prefix){
+  const isLogo = key.indexOf("logoImg") === 0;
+  pickImage((dataURL, ext)=>{
+    const old = content.settings[key];
+    if(old && pending[old]) delete pending[old];
+    const path = "images/"+prefix+"-"+Date.now()+"."+ext;
+    pending[path] = {b64: dataURL.split(",")[1], preview: dataURL};
+    content.settings[key] = path;
+    setDirty(); go(sec);
+    toast("Imagen lista. Recuerda publicar.");
+  }, {png:isLogo, max:isLogo?600:1400});
+}
+function sImgRemove(key){
+  const old = content.settings[key];
+  if(old && pending[old]) delete pending[old];
+  content.settings[key] = "";
+  setDirty(); go(sec);
+}
+function sImgRow(key, prefix, label, hint){
+  const v = content.settings[key]||"";
+  return `<label>${label} <small>${hint||""}</small></label>
+  <div class="img-edit">
+    <div class="prev">${v?`<img src="${esc(imgSrc(v))}" onerror="this.replaceWith('pendiente de publicar')">`:"Sin imagen"}</div>
+    <div style="display:flex;flex-direction:column;gap:.5rem">
+      <button class="btn btn-ghost btn-sm" onclick="sImgPick('${key}','${prefix}')">📷 Subir imagen</button>
+      ${v?`<button class="btn btn-danger btn-sm" onclick="sImgRemove('${key}')">Quitar</button>`:""}
+    </div>
+  </div>`;
+}
+let modalImg = null;
 function imgEditor(currentPath){
   const has = currentPath || (modalImg && modalImg.dataURL);
   return `
@@ -323,7 +471,6 @@ function modalRemoveImage(){
   modalImg = {remove:true};
   $("#img-prev").innerHTML = "Sin foto<br>(se usará el diseño automático)";
 }
-/* aplica modalImg al objeto al guardar; devuelve true si cambió */
 function applyModalImg(obj, prefix){
   if(!modalImg) return false;
   if(modalImg.remove){
@@ -359,40 +506,351 @@ function closeModal(){ $("#modal-root").innerHTML = ""; modalImg = null; modalSa
 const V = id=>$("#"+id) ? $("#"+id).value : "";
 const fld = (id,lab,val,ph)=>`<label>${lab}</label><input id="${id}" value="${esc(val)}" placeholder="${esc(ph||"")}">`;
 const area = (id,lab,val)=>`<label>${lab}</label><textarea id="${id}">${esc(val)}</textarea>`;
+const colById = id=>content.collections.find(c=>c.id===id);
+function viewCollectionProducts(id){ prodFilter = id; go("products"); }
 
-/* ================= PRODUCTOS ================= */
-function thumbFor(o, svgNote){
-  return o.img
-    ? `<img src="${esc(imgSrc(o.img))}" onerror="this.outerHTML='<span class=ph>foto pendiente de publicar</span>'">`
-    : `<span class="ph">${svgNote||"Diseño automático<br>(sube una foto si quieres)"}</span>`;
-}
-function renderProducts(){
-  const el = $("#tab-content");
-  el.innerHTML = `
+/* ================= SECCIONES ================= */
+const SECTIONS = {
+
+/* ---- INICIO ---- */
+portada(){
+  $("#sec-content").innerHTML = `
+    <div class="card">
+      <h3>Imagen principal</h3>
+      ${sImgRow("heroImg","hero","Imagen de portada","(reemplaza al perrito animado; déjalo vacío para conservarlo)")}
+    </div>
+    <div class="card"><h3>Textos de la portada</h3>
+    ${textRows(k=>/^hero\./.test(k), {
+      "hero.eyebrow":"Texto pequeño sobre el título",
+      "hero.title":"Título grande (envuelve una palabra en <em></em> para resaltarla)",
+      "hero.sub":"Párrafo de bienvenida",
+      "hero.cta1":"Botón principal",
+      "hero.cta2":"Botón secundario"
+    })}</div>`;
+},
+destacados(){
+  textSection("La franja «Destacados» del inicio. Qué productos aparecen se controla con la casilla «Destacado» de cada producto.", k=>/^feat\./.test(k), {
+    "feat.eyebrow":"Texto pequeño","feat.title":"Título de la sección","feat.sub":"Descripción"
+  });
+},
+historia(){
+  textSection("La sección «Nuestra historia» del inicio.", k=>/^story\./.test(k), {
+    "story.eyebrow":"Texto pequeño","story.title":"Título","story.p1":"Párrafo 1","story.p2":"Párrafo 2","story.p3":"Párrafo 3",
+    "story.s1":"Etiqueta dato 1 (el «7»)","story.s2":"Etiqueta dato 2 (el «2»)","story.s3":"Etiqueta dato 3 (el «3»)",
+    "story.connect":"Título de la tarjeta de contacto","story.cta":"Botón de la tarjeta"
+  });
+},
+
+/* ---- TIENDA ---- */
+products(){
+  const fc = prodFilter ? colById(prodFilter) : null;
+  const list = fc ? content.products.filter(p=>p.col===prodFilter) : content.products;
+  $("#sec-content").innerHTML = `
+    ${fc ? `<div class="banner">📁 Mostrando los productos de la colección <b>${esc(fc.name)}</b>.
+      <button class="btn btn-ghost btn-sm" style="margin-left:.6rem" onclick="prodFilter=null;go('products')">Ver todos</button></div>` : ""}
     <div class="section-title">
-      <h2>Productos (${content.products.length})</h2>
-      <span class="hint">Toca un producto para editar nombre, precio, fotos y descripción.</span>
+      <h2>${fc ? "Productos de «"+esc(fc.name)+"»" : "Todos los productos"} (${list.length})</h2>
+      <span class="hint">Toca un producto para editar nombre, precio, foto y descripción.</span>
     </div>
     <div class="grid">
-      ${content.products.map(p=>`
+      ${list.map(p=>`
         <div class="item-card">
-          <div class="item-thumb">${thumbFor(p)}</div>
+          <div class="item-thumb">${p.img?`<img src="${esc(imgSrc(p.img))}" onerror="this.outerHTML='<span class=ph>foto pendiente de publicar</span>'">`:`<span class="ph">Diseño automático<br>(sube una foto si quieres)</span>`}</div>
           <div class="item-body">
             <b>${esc(p.name.es)}</b>
-            <span class="sub">$${Number(p.price).toFixed(2)} · ${esc((colById(p.col)||{}).name||p.col)} ${p.featured?"· ⭐ destacado":""}</span>
+            <span class="sub">$${Number(p.price).toFixed(2)} · ${esc((colById(p.col)||{}).name||p.col)} ${p.featured?"· ⭐":""}</span>
             <div class="item-actions">
               <button class="btn btn-dark btn-sm" onclick="editProduct('${p.id}')">Editar</button>
               <button class="btn btn-danger btn-sm" onclick="delProduct('${p.id}')">Eliminar</button>
             </div>
           </div>
         </div>`).join("")}
-      <button class="add-card" onclick="editProduct(null)">+ Añadir producto</button>
+      <button class="add-card" onclick="editProduct(null)">+ Añadir producto${fc?" a «"+esc(fc.name)+"»":""}</button>
+    </div>`;
+},
+collections(){
+  $("#sec-content").innerHTML = `
+    <div class="section-title">
+      <h2>Colecciones (${content.collections.length})</h2>
+      <span class="hint">Toca «Ver productos» para entrar a una colección y agregar productos dentro.</span>
+    </div>
+    <div class="grid">
+      ${content.collections.map(c=>`
+        <div class="item-card">
+          <div class="item-thumb" style="${c.img?"":"background:linear-gradient(135deg,"+c.c1+","+c.c2+")"}">
+            ${c.img?`<img src="${esc(imgSrc(c.img))}" onerror="this.remove()">`:""}
+            <span class="sw"><i style="background:${c.c1}"></i><i style="background:${c.c2}"></i></span>
+          </div>
+          <div class="item-body">
+            <b>${esc(c.name)}</b>
+            <span class="sub">${content.products.filter(p=>p.col===c.id).length} productos</span>
+            <div class="item-actions">
+              <button class="btn btn-accent btn-sm" onclick="viewCollectionProducts('${c.id}')">Ver productos</button>
+              <button class="btn btn-dark btn-sm" onclick="editCollection('${c.id}')">Editar</button>
+              <button class="btn btn-danger btn-sm" onclick="delCollection('${c.id}')">Eliminar</button>
+            </div>
+          </div>
+        </div>`).join("")}
+      <button class="add-card" onclick="editCollection(null)">+ Añadir colección</button>
+    </div>`;
+},
+envios(){
+  const s = content.settings;
+  $("#sec-content").innerHTML = `
+    <div class="card"><h3>Envíos</h3>
+      <div class="row2">
+        <div><label>Envío gratis a partir de (USD)</label><input data-s="freeShip" type="number" min="0" value="${s.freeShip}" oninput="setEdit(this,true)"></div>
+        <div><label>Costo de envío (USD)</label><input data-s="shipCost" type="number" step="0.01" min="0" value="${s.shipCost}" oninput="setEdit(this,true)"></div>
+      </div>
+    </div>
+    <div class="card"><h3>Tallas</h3>
+      <label>Tallas de la tienda <small>(separadas por comas; cada producto puede limitar las suyas)</small></label>
+      <input value="${esc(content.sizes.join(", "))}" oninput="sizesEdit(this)">
+    </div>`;
+},
+"tienda-textos"(){
+  textSection("Textos de la página de colecciones, filtros y tarjetas de producto.", k=>/^(cols|col|p)\./.test(k), {
+    "cols.title":"Título de la página de colecciones","cols.sub":"Descripción de la página","cols.eyebrow":"Texto pequeño",
+    "p.add":"Botón «Agregar»","p.addCart":"Botón «Agregar al carrito»","p.quick":"Botón «Vista rápida»"
+  });
+},
+carrito(){
+  textSection("Textos del carrito y del proceso de compra.", k=>/^(cart|checkout)\./.test(k), {
+    "cart.title":"Título del carrito","cart.empty":"Mensaje de carrito vacío","cart.checkout":"Botón de finalizar compra",
+    "cart.freeShip1":"Aviso de cuánto falta para envío gratis ({x} = monto)","cart.freeShip2":"Aviso de envío gratis conseguido"
+  });
+},
+
+/* ---- GMKT ---- */
+"gmkt-pagina"(){
+  textSection("Todos los textos de la página GMKT: encabezado, misión, visión, antes/después y formulario de contacto.", k=>/^(gmkt|form)\./.test(k), {
+    "gmkt.title":"Título principal","gmkt.sub":"Descripción del estudio",
+    "gmkt.m1t":"Tarjeta 1 — título","gmkt.m1p":"Tarjeta 1 — texto","gmkt.m2t":"Tarjeta 2 — título","gmkt.m2p":"Tarjeta 2 — texto",
+    "gmkt.m3t":"Tarjeta 3 — título","gmkt.m3p":"Tarjeta 3 — texto","gmkt.m4t":"Tarjeta 4 — título","gmkt.m4p":"Tarjeta 4 — texto",
+    "gmkt.beforeP":"Caso «Antes»","gmkt.afterP":"Caso «Después»","form.sent":"Mensaje al enviar el formulario"
+  });
+},
+servicios(){
+  $("#sec-content").innerHTML = `
+    <div class="section-title"><h2>Servicios (${content.services.length})</h2>
+      <button class="btn btn-ghost btn-sm" onclick="editService(null)">+ Añadir</button></div>
+    <div class="grid">${content.services.map(s=>`
+      <div class="item-card"><div class="item-body">
+        <b>${esc(s.name.es)}</b><span class="sub">${esc(s.desc.es.slice(0,70))}…</span>
+        <div class="item-actions">
+          <button class="btn btn-dark btn-sm" onclick="editService('${s.id}')">Editar</button>
+          <button class="btn btn-danger btn-sm" onclick="delItem('services','${s.id}','servicios')">Eliminar</button>
+        </div>
+      </div></div>`).join("")}</div>`;
+},
+planes(){
+  $("#sec-content").innerHTML = `
+    <div class="section-title"><h2>Planes (${content.plans.length})</h2>
+      <button class="btn btn-ghost btn-sm" onclick="editPlan(null)">+ Añadir</button></div>
+    <div class="grid">${content.plans.map(p=>`
+      <div class="item-card"><div class="item-body">
+        <b>${esc(p.name.es)} — $${p.price}/mes ${p.featured?"· ⭐":""}</b>
+        <span class="sub">${p.items.es.length} características</span>
+        <div class="item-actions">
+          <button class="btn btn-dark btn-sm" onclick="editPlan('${p.id}')">Editar</button>
+          <button class="btn btn-danger btn-sm" onclick="delItem('plans','${p.id}','planes')">Eliminar</button>
+        </div>
+      </div></div>`).join("")}</div>`;
+},
+portafolio(){
+  $("#sec-content").innerHTML = `
+    <div class="section-title"><h2>Portafolio (${content.portfolio.length})</h2>
+      <button class="btn btn-ghost btn-sm" onclick="editWork(null)">+ Añadir</button></div>
+    <div class="grid">${content.portfolio.map(w=>`
+      <div class="item-card">
+        <div class="item-thumb" style="${w.img?"":"background:linear-gradient(135deg,"+w.c1+","+w.c2+")"}">${w.img?`<img src="${esc(imgSrc(w.img))}" onerror="this.remove()">`:""}</div>
+        <div class="item-body">
+          <b>${esc(w.name.es)}</b><span class="sub">${esc(w.tag.es)}</span>
+          <div class="item-actions">
+            <button class="btn btn-dark btn-sm" onclick="editWork('${w.id}')">Editar</button>
+            <button class="btn btn-danger btn-sm" onclick="delItem('portfolio','${w.id}','portafolio')">Eliminar</button>
+          </div>
+        </div>
+      </div>`).join("")}</div>`;
+},
+
+/* ---- APARIENCIA ---- */
+marca(){
+  const s = content.settings;
+  $("#sec-content").innerHTML = `
+    <div class="card"><h3>Nombre e identidad</h3>
+      <div class="row2">
+        <div><label>Nombre de la marca <small>(la última palabra se resalta en color)</small></label><input data-s="brandName" value="${esc(s.brandName)}" oninput="setEdit(this)"></div>
+        <div><label>Título de la pestaña del navegador <small>(opcional)</small></label><input data-s="pageTitle" value="${esc(s.pageTitle)}" placeholder="ej: GM Basics — Tienda" oninput="setEdit(this)"></div>
+      </div>
+    </div>
+    <div class="card"><h3>Logo</h3>
+      ${sImgRow("logoImg","logo","Logo — modo claro ☀️","(reemplaza la huella 🐾 · ideal PNG con fondo transparente · también se usa como ícono de la pestaña)")}
+      ${sImgRow("logoImgDark","logo-dark","Logo — modo oscuro 🌙","(si lo dejas vacío, se usa el del modo claro)")}
+      <button class="btn btn-accent btn-sm" style="margin-top:1rem" onclick="makeWhiteLogo()">🪄 Crear versión blanca automáticamente</button>
+      <p class="hint" style="margin-top:.6rem">Toma el logo del modo claro y lo pinta de blanco conservando su forma (necesita PNG con fondo transparente).</p>
+    </div>`;
+},
+colores(){
+  const labels = {bg:"Fondo de la página",surface:"Fondo de tarjetas",surface2:"Fondo secundario",ink:"Color del texto",muted:"Texto secundario",accent:"Color de acento (botones y detalles)",accentSoft:"Fondo suave del acento",accentInk:"Texto sobre el acento"};
+  const mode = m=>Object.keys(labels).map(k=>`
+    <label>${labels[k]}</label>
+    <input type="color" value="${content.theme.colors[m][k]}" oninput="colorEdit('${m}','${k}',this.value)">`).join("");
+  $("#sec-content").innerHTML = `
+    <div class="banner">🎨 La huella del logo, los botones y los detalles usan el <b>color de acento</b>. Publica para ver el resultado final en la web.</div>
+    <div class="color-grid">
+      <div class="card"><h3>☀️ Modo claro</h3>${mode("light")}
+        <button class="btn btn-ghost btn-sm" style="margin-top:1rem" onclick="resetColors('light')">Restaurar originales</button></div>
+      <div class="card"><h3>🌙 Modo oscuro</h3>${mode("dark")}
+        <button class="btn btn-ghost btn-sm" style="margin-top:1rem" onclick="resetColors('dark')">Restaurar originales</button></div>
+    </div>
+    <div class="card"><h3>Bordes</h3>
+      <label>Redondez de tarjetas y botones</label>
+      <select onchange="content.theme.radius=this.value;setDirty()">
+        ${[["compact","Más cuadrado"],["normal","Normal (original)"],["round","Más redondo"]].map(([v,l])=>`<option value="${v}" ${content.theme.radius===v?"selected":""}>${l}</option>`).join("")}
+      </select>
+    </div>`;
+},
+tipografia(){
+  const F = content.theme.fonts;
+  const lists = {
+    display:["Archivo","Bebas Neue","Anton","Montserrat","Oswald","Poppins","Space Grotesk","Playfair Display","DM Serif Display","Raleway","Lora"],
+    body:["Manrope","Inter","Open Sans","Nunito","Work Sans","Lato","Roboto","Karla","Quicksand","Montserrat","Raleway"],
+    mono:["Space Mono","IBM Plex Mono","JetBrains Mono","Courier Prime"]
+  };
+  const sel = (k,lab,hint)=>`
+    <label>${lab} <small>${hint}</small></label>
+    <select onchange="content.theme.fonts.${k}=this.value;setDirty();fontPreview()">
+      ${lists[k].map(f=>`<option ${f===F[k]?"selected":""}>${f}</option>`).join("")}
+    </select>`;
+  $("#sec-content").innerHTML = `
+    <div class="card"><h3>Fuentes</h3>
+      ${sel("display","Títulos","(títulos grandes y nombres de sección)")}
+      ${sel("body","Texto general","(párrafos, botones y menús)")}
+      ${sel("mono","Detalles y precios","(precios, etiquetas pequeñas)")}
+      <div class="font-preview" id="font-preview"></div>
+    </div>`;
+  fontPreview();
+},
+
+/* ---- GENERAL ---- */
+contacto(){
+  const s = content.settings;
+  $("#sec-content").innerHTML = `
+    <div class="card"><h3>Datos de contacto</h3>
+      <div class="row2">
+        <div><label>Email de la tienda</label><input data-s="brandEmail" value="${esc(s.brandEmail)}" oninput="setEdit(this)"></div>
+        <div><label>Email de GMKT</label><input data-s="gmktEmail" value="${esc(s.gmktEmail)}" oninput="setEdit(this)"></div>
+      </div>
+      <div class="row2">
+        <div><label>Teléfono <small>(como quieres que se vea)</small></label><input data-s="phone" value="${esc(s.phone)}" oninput="setEdit(this)"></div>
+        <div><label>WhatsApp <small>(solo números, con código de país)</small></label><input data-s="whatsapp" value="${esc(s.whatsapp)}" oninput="setEdit(this)"></div>
+      </div>
+      <label>Ubicación</label><input data-s="location" value="${esc(s.location)}" oninput="setEdit(this)">
+    </div>
+    <div class="card"><h3>Redes sociales</h3>
+      <div class="row2">
+        <div><label>Instagram <small>(enlace completo)</small></label><input data-s="instagram" value="${esc(s.instagram)}" placeholder="https://instagram.com/…" oninput="setEdit(this)"></div>
+        <div><label>TikTok <small>(enlace completo)</small></label><input data-s="tiktok" value="${esc(s.tiktok)}" placeholder="https://tiktok.com/@…" oninput="setEdit(this)"></div>
+      </div>
+    </div>
+    <div class="card"><h3>Etiquetas de contacto</h3>
+    ${textRows(k=>/^contact\./.test(k), {"contact.phone":"Etiqueta «Teléfono»","contact.base":"Etiqueta «Base/Ubicación»"})}</div>`;
+},
+navegacion(){
+  textSection("Los textos del menú superior del sitio.", k=>/^nav\./.test(k), {
+    "nav.home":"Inicio","nav.collections":"Colecciones","nav.login":"Botón de iniciar sesión","nav.account":"Mi cuenta"
+  });
+},
+footer(){
+  $("#sec-content").innerHTML = `
+    <div class="card"><h3>Copyright</h3>
+      <label>Línea inferior del sitio</label>
+      <input data-s="copyright" value="${esc(content.settings.copyright)}" oninput="setEdit(this)">
+    </div>
+    <div class="card"><h3>Textos del pie de página</h3>
+    ${textRows(k=>/^footer\./.test(k), {
+      "footer.tag":"Frase bajo el logo","footer.shop":"Título columna Tienda","footer.brand":"Título columna Marca",
+      "footer.help":"Título columna Ayuda","footer.made":"Frase final derecha"
+    })}</div>`;
+},
+cuenta(){
+  textSection("Textos de registro, inicio de sesión y página de cuenta.", k=>/^(auth|acct)\./.test(k), {
+    "auth.loginTitle":"Título de iniciar sesión","auth.regTitle":"Título de registro","acct.hello":"Saludo ({x} = nombre)"
+  });
+},
+mensajes(){
+  textSection("Avisos emergentes y mensajes pequeños del sitio.", k=>!/^(nav|hero|feat|story|contact|cols|col|p|gmkt|form|cart|checkout|auth|acct|footer)\./.test(k), {
+    "toast.ship":"Aviso de envíos","toast.sizes":"Aviso de guía de tallas"
+  });
+},
+github(){
+  $("#sec-content").innerHTML = `
+    <div class="card"><h3>Conexión con GitHub</h3>
+      <p class="hint" style="margin-bottom:1rem">Conectado a <b>${esc(cfg.owner)}/${esc(cfg.repo)}</b> (rama ${esc(cfg.branch)}).</p>
+      <button class="btn btn-ghost" onclick="openSetup()">Cambiar usuario, repositorio o token</button>
     </div>`;
 }
+};
+
+async function makeWhiteLogo(){
+  const src = content.settings.logoImg;
+  if(!src){ toast("Primero sube el logo del modo claro", true); return; }
+  let dataURL;
+  try{
+    if(pending[src]) dataURL = pending[src].preview;
+    else{
+      const r = await fetch(rawUrl(src));
+      if(!r.ok) throw new Error();
+      const blob = await r.blob();
+      dataURL = await new Promise(res=>{ const fr = new FileReader(); fr.onload = ()=>res(fr.result); fr.readAsDataURL(blob); });
+    }
+  }catch(e){ toast("No se pudo cargar el logo actual. Súbelo de nuevo y reintenta.", true); return; }
+  const im = new Image();
+  im.onload = ()=>{
+    const cv = document.createElement("canvas"); cv.width = im.width; cv.height = im.height;
+    const ctx = cv.getContext("2d"); ctx.drawImage(im,0,0);
+    let d;
+    try{ d = ctx.getImageData(0,0,cv.width,cv.height); }
+    catch(e){ toast("No se pudo procesar el logo", true); return; }
+    for(let i=0;i<d.data.length;i+=4){ d.data[i]=255; d.data[i+1]=255; d.data[i+2]=255; }
+    ctx.putImageData(d,0,0);
+    const out = cv.toDataURL("image/png");
+    const old = content.settings.logoImgDark;
+    if(old && pending[old]) delete pending[old];
+    const path = "images/logo-dark-"+Date.now()+".png";
+    pending[path] = {b64: out.split(",")[1], preview: out};
+    content.settings.logoImgDark = path;
+    setDirty(); go(sec);
+    toast("Versión blanca creada ✓ Recuerda publicar.");
+  };
+  im.onerror = ()=>toast("No se pudo procesar el logo", true);
+  im.src = dataURL;
+}
+function colorEdit(m,k,v){ content.theme.colors[m][k] = v; setDirty(); }
+function resetColors(m){
+  content.theme.colors[m] = JSON.parse(JSON.stringify(THEME_DEFAULT.colors[m]));
+  setDirty(); go("colores"); toast("Colores de "+(m==="light"?"modo claro":"modo oscuro")+" restaurados");
+}
+function fontPreview(){
+  const F = content.theme.fonts;
+  const el = $("#font-preview"); if(!el) return;
+  el.innerHTML = `
+    <div class="fp-title" style="font-family:'${F.display}',sans-serif">Básicos que nunca son básicos.</div>
+    <div class="fp-body" style="font-family:'${F.body}',sans-serif">Ropa premium inspirada en tres bulldogs franceses con mucha personalidad. Así se verán los párrafos y botones.</div>
+    <div class="fp-mono" style="font-family:'${F.mono}',monospace">$78.00 · PREMIUM LIFESTYLE</div>`;
+}
+function sizesEdit(el){
+  const arr = el.value.split(",").map(x=>x.trim()).filter(Boolean);
+  if(arr.length) content.sizes = arr;
+  setDirty();
+}
+
+/* ================= editores (modales) ================= */
 function editProduct(id){
   const isNew = !id;
   const p = isNew
-    ? {id:"p"+Date.now(), col:content.collections[0].id, art:"tee", price:0, featured:false, img:"", name:{es:"",en:""}, desc:{es:"",en:""}}
+    ? {id:"p"+Date.now(), col:(prodFilter||content.collections[0].id), art:"tee", price:0, featured:false, img:"", name:{es:"",en:""}, desc:{es:"",en:""}}
     : content.products.find(x=>x.id===id);
   const sizes = p.sizes || content.sizes;
   openModal(isNew?"Nuevo producto":"Editar producto", "Los cambios se publican cuando presionas «Publicar cambios».", `
@@ -429,7 +887,7 @@ function editProduct(id){
     p.desc.es = V("f-des"); p.desc.en = V("f-den") || V("f-des");
     applyModalImg(p, "prod-"+p.id);
     if(isNew) content.products.push(p);
-    setDirty(); closeModal(); renderProducts();
+    setDirty(); closeModal(); go("products");
     toast(isNew?"Producto añadido ✓":"Producto actualizado ✓");
   });
 }
@@ -438,34 +896,7 @@ function delProduct(id){
   if(!confirm("¿Eliminar «"+p.name.es+"»?")) return;
   if(p.img && pending[p.img]) delete pending[p.img];
   content.products = content.products.filter(x=>x.id!==id);
-  setDirty(); renderProducts(); toast("Producto eliminado");
-}
-
-/* ================= COLECCIONES ================= */
-function renderCollections(){
-  $("#tab-content").innerHTML = `
-    <div class="section-title">
-      <h2>Colecciones (${content.collections.length})</h2>
-      <span class="hint">Cada colección agrupa productos y tiene su propia portada.</span>
-    </div>
-    <div class="grid">
-      ${content.collections.map(c=>`
-        <div class="item-card">
-          <div class="item-thumb" style="${c.img?"":"background:linear-gradient(135deg,"+c.c1+","+c.c2+")"}">
-            ${c.img?`<img src="${esc(imgSrc(c.img))}" onerror="this.remove()">`:""}
-            <span class="sw"><i style="background:${c.c1}"></i><i style="background:${c.c2}"></i></span>
-          </div>
-          <div class="item-body">
-            <b>${esc(c.name)}</b>
-            <span class="sub">${content.products.filter(p=>p.col===c.id).length} productos</span>
-            <div class="item-actions">
-              <button class="btn btn-dark btn-sm" onclick="editCollection('${c.id}')">Editar</button>
-              <button class="btn btn-danger btn-sm" onclick="delCollection('${c.id}')">Eliminar</button>
-            </div>
-          </div>
-        </div>`).join("")}
-      <button class="add-card" onclick="editCollection(null)">+ Añadir colección</button>
-    </div>`;
+  setDirty(); go("products"); toast("Producto eliminado");
 }
 function editCollection(id){
   const isNew = !id;
@@ -475,8 +906,8 @@ function editCollection(id){
   openModal(isNew?"Nueva colección":"Editar colección", "Colores: se usan en el diseño automático cuando no hay foto.", `
     ${fld("f-name","Nombre",c.name)}
     <div class="row2">
-      <div><label>Color principal</label><input id="f-c1" type="color" value="${c.c1}" style="height:46px;padding:.25rem"></div>
-      <div><label>Color secundario</label><input id="f-c2" type="color" value="${c.c2}" style="height:46px;padding:.25rem"></div>
+      <div><label>Color principal</label><input id="f-c1" type="color" value="${c.c1}"></div>
+      <div><label>Color secundario</label><input id="f-c2" type="color" value="${c.c2}"></div>
     </div>
     <label>Foto de portada</label>
     ${imgEditor(c.img)}
@@ -493,7 +924,7 @@ function editCollection(id){
     }
     applyModalImg(c, "col-"+c.id);
     if(isNew) content.collections.push(c);
-    setDirty(); closeModal(); renderCollections();
+    setDirty(); closeModal(); go("collections");
     toast(isNew?"Colección añadida ✓":"Colección actualizada ✓");
   });
 }
@@ -504,94 +935,16 @@ function delCollection(id){
   if(!confirm("¿Eliminar la colección «"+c.name+"»?")) return;
   if(c.img && pending[c.img]) delete pending[c.img];
   content.collections = content.collections.filter(x=>x.id!==id);
-  setDirty(); renderCollections(); toast("Colección eliminada");
+  setDirty(); go("collections"); toast("Colección eliminada");
 }
-
-/* ================= TEXTOS ================= */
-const TXT_GROUPS = [
-  ["Página de inicio", k=>/^(hero|feat|story)\./.test(k)],
-  ["Tienda y productos", k=>/^(cols|col|p)\./.test(k)],
-  ["Carrito y compra", k=>/^(cart|checkout)\./.test(k)],
-  ["GMKT (estudio creativo)", k=>/^(gmkt|form)\./.test(k)],
-  ["Cuenta de usuario", k=>/^(auth|acct)\./.test(k)],
-  ["Pie de página", k=>/^footer\./.test(k)],
-  ["Navegación", k=>/^nav\./.test(k)],
-  ["Mensajes y avisos", k=>true]
-];
-function renderTexts(){
-  const keys = Object.keys(content.i18n.es);
-  const used = new Set();
-  let html = `
-    <div class="section-title"><h2>Textos del sitio</h2>
-    <span class="hint">Edita lo que quieras: se guarda mientras escribes. El sitio es bilingüe, por eso cada texto tiene versión en Español e Inglés.</span></div>`;
-  for(const [name, test] of TXT_GROUPS){
-    const ks = keys.filter(k=>!used.has(k) && test(k));
-    ks.forEach(k=>used.add(k));
-    if(!ks.length) continue;
-    html += `<div class="txt-group"><h3>${name}</h3>` + ks.map(k=>`
-      <div class="txt-row">
-        <div class="k">${esc(k)}</div>
-        <div class="pair">
-          <div><div class="lang-lab">ESPAÑOL</div><textarea data-k="${esc(k)}" data-l="es" oninput="txtEdit(this)">${esc(content.i18n.es[k])}</textarea></div>
-          <div><div class="lang-lab">INGLÉS</div><textarea data-k="${esc(k)}" data-l="en" oninput="txtEdit(this)">${esc(content.i18n.en[k]||"")}</textarea></div>
-        </div>
-      </div>`).join("") + `</div>`;
-  }
-  $("#tab-content").innerHTML = html;
-}
-function txtEdit(el){
-  content.i18n[el.dataset.l][el.dataset.k] = el.value;
-  setDirty();
-}
-
-/* ================= GMKT ================= */
-const ICONS = {chat:"💬 Chat",gem:"💎 Gema",pen:"✏️ Pluma",target:"🎯 Diana",cam:"🎥 Cámara",map:"🗺️ Mapa"};
-function renderGmkt(){
-  $("#tab-content").innerHTML = `
-    <div class="section-title"><h2>Servicios (${content.services.length})</h2>
-      <button class="btn btn-ghost btn-sm" onclick="editService(null)">+ Añadir</button></div>
-    <div class="grid">${content.services.map(s=>`
-      <div class="item-card"><div class="item-body">
-        <b>${esc(s.name.es)}</b><span class="sub">${esc(s.desc.es.slice(0,70))}…</span>
-        <div class="item-actions">
-          <button class="btn btn-dark btn-sm" onclick="editService('${s.id}')">Editar</button>
-          <button class="btn btn-danger btn-sm" onclick="delItem('services','${s.id}')">Eliminar</button>
-        </div>
-      </div></div>`).join("")}</div>
-
-    <div class="section-title"><h2>Planes (${content.plans.length})</h2>
-      <button class="btn btn-ghost btn-sm" onclick="editPlan(null)">+ Añadir</button></div>
-    <div class="grid">${content.plans.map(p=>`
-      <div class="item-card"><div class="item-body">
-        <b>${esc(p.name.es)} — $${p.price}/mes ${p.featured?"· ⭐":""}</b>
-        <span class="sub">${p.items.es.length} características</span>
-        <div class="item-actions">
-          <button class="btn btn-dark btn-sm" onclick="editPlan('${p.id}')">Editar</button>
-          <button class="btn btn-danger btn-sm" onclick="delItem('plans','${p.id}')">Eliminar</button>
-        </div>
-      </div></div>`).join("")}</div>
-
-    <div class="section-title"><h2>Portafolio (${content.portfolio.length})</h2>
-      <button class="btn btn-ghost btn-sm" onclick="editWork(null)">+ Añadir</button></div>
-    <div class="grid">${content.portfolio.map(w=>`
-      <div class="item-card">
-        <div class="item-thumb" style="${w.img?"":"background:linear-gradient(135deg,"+w.c1+","+w.c2+")"}">${w.img?`<img src="${esc(imgSrc(w.img))}" onerror="this.remove()">`:""}</div>
-        <div class="item-body">
-          <b>${esc(w.name.es)}</b><span class="sub">${esc(w.tag.es)}</span>
-          <div class="item-actions">
-            <button class="btn btn-dark btn-sm" onclick="editWork('${w.id}')">Editar</button>
-            <button class="btn btn-danger btn-sm" onclick="delItem('portfolio','${w.id}')">Eliminar</button>
-          </div>
-        </div>
-      </div>`).join("")}</div>`;
-}
-function delItem(list, id){
+function delItem(list, id, backTo){
   const it = content[list].find(x=>x.id===id);
   if(!confirm("¿Eliminar «"+(it.name.es||it.name)+"»?")) return;
   if(it.img && pending[it.img]) delete pending[it.img];
   content[list] = content[list].filter(x=>x.id!==id);
-  setDirty(); renderGmkt(); toast("Eliminado");
+  setDirty(); go(backTo); toast("Eliminado");
 }
+const ICONS = {chat:"💬 Chat",gem:"💎 Gema",pen:"✏️ Pluma",target:"🎯 Diana",cam:"🎥 Cámara",map:"🗺️ Mapa"};
 function editService(id){
   const isNew = !id;
   const s = isNew ? {id:"svc"+Date.now(), icon:"chat", name:{es:"",en:""}, desc:{es:"",en:""}} : content.services.find(x=>x.id===id);
@@ -605,7 +958,7 @@ function editService(id){
     s.name.es=V("f-nes").trim(); s.name.en=V("f-nen").trim()||s.name.es;
     s.icon=V("f-icon"); s.desc.es=V("f-des"); s.desc.en=V("f-den")||V("f-des");
     if(isNew) content.services.push(s);
-    setDirty(); closeModal(); renderGmkt(); toast("Guardado ✓");
+    setDirty(); closeModal(); go("servicios"); toast("Guardado ✓");
   });
 }
 function editPlan(id){
@@ -627,7 +980,7 @@ function editPlan(id){
     p.items.en=V("f-ien").split("\n").map(x=>x.trim()).filter(Boolean);
     if(!p.items.en.length) p.items.en=[...p.items.es];
     if(isNew) content.plans.push(p);
-    setDirty(); closeModal(); renderGmkt(); toast("Guardado ✓");
+    setDirty(); closeModal(); go("planes"); toast("Guardado ✓");
   });
 }
 function editWork(id){
@@ -637,8 +990,8 @@ function editWork(id){
     <div class="row2">${fld("f-nes","Nombre del proyecto (Español)",w.name.es)}${fld("f-nen","Nombre (Inglés)",w.name.en)}</div>
     <div class="row2">${fld("f-tes","Etiqueta (Español)",w.tag.es,"ej: Branding · Café")}${fld("f-ten","Etiqueta (Inglés)",w.tag.en,"ej: Branding · Coffee")}</div>
     <div class="row2">
-      <div><label>Color principal</label><input id="f-c1" type="color" value="${w.c1}" style="height:46px;padding:.25rem"></div>
-      <div><label>Color secundario</label><input id="f-c2" type="color" value="${w.c2}" style="height:46px;padding:.25rem"></div>
+      <div><label>Color principal</label><input id="f-c1" type="color" value="${w.c1}"></div>
+      <div><label>Color secundario</label><input id="f-c2" type="color" value="${w.c2}"></div>
     </div>
     <label>Foto del proyecto</label>
     ${imgEditor(w.img)}
@@ -649,49 +1002,8 @@ function editWork(id){
     w.c1=V("f-c1"); w.c2=V("f-c2");
     applyModalImg(w, "pf-"+w.id);
     if(isNew) content.portfolio.push(w);
-    setDirty(); closeModal(); renderGmkt(); toast("Guardado ✓");
+    setDirty(); closeModal(); go("portafolio"); toast("Guardado ✓");
   });
-}
-
-/* ================= AJUSTES ================= */
-function renderSettings(){
-  const s = content.settings;
-  $("#tab-content").innerHTML = `
-    <div class="section-title"><h2>Ajustes generales</h2>
-    <span class="hint">Datos de contacto y configuración de la tienda. Se guardan mientras escribes.</span></div>
-    <div class="card">
-      <div class="row2">
-        <div><label>Email de la tienda</label><input data-s="brandEmail" value="${esc(s.brandEmail)}" oninput="setEdit(this)"></div>
-        <div><label>Email de GMKT</label><input data-s="gmktEmail" value="${esc(s.gmktEmail)}" oninput="setEdit(this)"></div>
-      </div>
-      <div class="row2">
-        <div><label>Teléfono <small>(como quieres que se vea)</small></label><input data-s="phone" value="${esc(s.phone)}" oninput="setEdit(this)"></div>
-        <div><label>WhatsApp <small>(solo números, con código de país)</small></label><input data-s="whatsapp" value="${esc(s.whatsapp)}" oninput="setEdit(this)"></div>
-      </div>
-      <div class="row2">
-        <div><label>Ubicación</label><input data-s="location" value="${esc(s.location)}" oninput="setEdit(this)"></div>
-        <div><label>Texto de copyright</label><input data-s="copyright" value="${esc(s.copyright)}" oninput="setEdit(this)"></div>
-      </div>
-      <div class="row2">
-        <div><label>Instagram <small>(enlace completo, opcional)</small></label><input data-s="instagram" value="${esc(s.instagram)}" placeholder="https://instagram.com/…" oninput="setEdit(this)"></div>
-        <div><label>TikTok <small>(enlace completo, opcional)</small></label><input data-s="tiktok" value="${esc(s.tiktok)}" placeholder="https://tiktok.com/@…" oninput="setEdit(this)"></div>
-      </div>
-      <div class="row2">
-        <div><label>Envío gratis a partir de (USD)</label><input data-s="freeShip" type="number" min="0" value="${s.freeShip}" oninput="setEdit(this,true)"></div>
-        <div><label>Costo de envío (USD)</label><input data-s="shipCost" type="number" step="0.01" min="0" value="${s.shipCost}" oninput="setEdit(this,true)"></div>
-      </div>
-      <label>Tallas de la tienda <small>(separadas por comas)</small></label>
-      <input id="f-sizes" value="${esc(content.sizes.join(", "))}" oninput="sizesEdit(this)">
-    </div>`;
-}
-function setEdit(el, num){
-  content.settings[el.dataset.s] = num ? (parseFloat(el.value)||0) : el.value;
-  setDirty();
-}
-function sizesEdit(el){
-  const arr = el.value.split(",").map(x=>x.trim()).filter(Boolean);
-  if(arr.length) content.sizes = arr;
-  setDirty();
 }
 
 /* ================= PUBLICAR ================= */
@@ -724,9 +1036,9 @@ async function publish(){
   const log = (m,cls)=>{ $("#pub-log").innerHTML += `<div class="${cls||""}">${m}</div>`; };
   try{
     for(let i=0;i<imgs.length;i++){
-      log("Subiendo foto "+(i+1)+" de "+imgs.length+"…");
+      log("Subiendo imagen "+(i+1)+" de "+imgs.length+"…");
       await putFile(imgs[i], pending[imgs[i]].b64, "Subir imagen "+imgs[i]);
-      log("✓ Foto "+(i+1)+" subida","okk");
+      log("✓ Imagen "+(i+1)+" subida","okk");
     }
     log("Guardando contenido…");
     sha = await putFile("content.json", b64utf8(JSON.stringify(content,null,2)), "Actualizar contenido del sitio", sha);

@@ -40,6 +40,8 @@ body{
   transition:background .45s ease,color .45s ease;
 }
 img,svg{display:block;max-width:100%}
+.logo img{height:36px;width:auto}
+.hero-mascot img{width:100%;height:auto;border-radius:22px}
 .pc-media img,.qv-media img,.ci-thumb img,.col-card .art img,.col-banner .art img,.pf-card .art img{width:100%;height:100%;object-fit:cover}
 .pc-media img{transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .product-card:hover .pc-media img{transform:scale(1.06)}
@@ -510,7 +512,7 @@ h1,h2,h3{text-wrap:balance}
           <path d="M20 17c6.5 0 11 5 11 10.5 0 4.5-3.6 7-7.2 5.8-2.4-.8-5.2-.8-7.6 0C12.6 34.5 9 32 9 27.5 9 22 13.5 17 20 17z"/>
         </g>
       </svg>
-      <span>GM&nbsp;<b>Basics</b></span>
+      <span class="cfg-brand">GM&nbsp;<b>Basics</b></span>
     </button>
 
     <nav class="nav-center" aria-label="principal">
@@ -719,7 +721,7 @@ h1,h2,h3{text-wrap:balance}
       <div>
         <button class="logo" onclick="go('home')" style="margin-bottom:1rem">
           <svg class="paw" viewBox="0 0 40 40" aria-hidden="true"><g fill="var(--accent)"><ellipse cx="13" cy="11" rx="4.5" ry="5.5"/><ellipse cx="27" cy="11" rx="4.5" ry="5.5"/><ellipse cx="6.5" cy="20" rx="3.8" ry="4.6"/><ellipse cx="33.5" cy="20" rx="3.8" ry="4.6"/><path d="M20 17c6.5 0 11 5 11 10.5 0 4.5-3.6 7-7.2 5.8-2.4-.8-5.2-.8-7.6 0C12.6 34.5 9 32 9 27.5 9 22 13.5 17 20 17z"/></g></svg>
-          <span>GM&nbsp;<b>Basics</b></span>
+          <span class="cfg-brand">GM&nbsp;<b>Basics</b></span>
         </button>
         <p style="color:var(--muted);font-size:.9rem;line-height:1.65;max-width:32ch" data-i18n="footer.tag">Básicos premium con alma de bulldog francés. Diseñado en Florida, querido en todas partes.</p>
       </div>
@@ -1146,6 +1148,10 @@ function mascotSVG(){
   <div class="woof" id="m-woof">¡Woof!</div>`;
 }
 function initMascot(){
+  if(SETTINGS.heroImg){
+    $("#mascot-wrap").innerHTML = `<img src="${esc(SETTINGS.heroImg)}" alt="">`;
+    return;
+  }
   $("#mascot-wrap").innerHTML = mascotSVG();
   const wrap = $("#mascot-wrap"), svg = $("#mascot");
 
@@ -1711,12 +1717,63 @@ window.addEventListener("scroll", ()=>{
 }, {passive:true});
 document.addEventListener("keydown", e=>{ if(e.key==="Escape") closeAllPanels(); });
 
+/* ---------- tema editable: colores, tipografia, bordes ---------- */
+const FONT_URLS = {
+  "Archivo":"Archivo:wdth,wght@62..125,300..900","Manrope":"Manrope:wght@200..800",
+  "Space Mono":"Space+Mono:wght@400;700","Inter":"Inter:wght@100..900",
+  "Montserrat":"Montserrat:wght@100..900","Poppins":"Poppins:wght@300;400;500;600;700;800;900",
+  "Oswald":"Oswald:wght@200..700","Bebas Neue":"Bebas+Neue","Anton":"Anton",
+  "Playfair Display":"Playfair+Display:wght@400..900","DM Serif Display":"DM+Serif+Display",
+  "Space Grotesk":"Space+Grotesk:wght@300..700","Raleway":"Raleway:wght@100..900",
+  "Lora":"Lora:wght@400..700","Open Sans":"Open+Sans:wght@300..800","Nunito":"Nunito:wght@200..900",
+  "Work Sans":"Work+Sans:wght@100..900","Lato":"Lato:wght@300;400;700;900","Roboto":"Roboto:wght@100..900",
+  "Karla":"Karla:wght@200..800","Quicksand":"Quicksand:wght@300..700",
+  "IBM Plex Mono":"IBM+Plex+Mono:wght@400;500;600;700","JetBrains Mono":"JetBrains+Mono:wght@100..800",
+  "Courier Prime":"Courier+Prime:wght@400;700"
+};
+const THEME_DEFAULT = {
+  colors:{
+    light:{bg:"#F5F3EF",surface:"#FFFFFF",surface2:"#EBE7E0",ink:"#1B1812",muted:"#756E64",accent:"#8A6E4B",accentSoft:"#ECE5D9",accentInk:"#FAF7F1"},
+    dark:{bg:"#121110",surface:"#1B1916",surface2:"#26221C",ink:"#ECE8E1",muted:"#9C958A",accent:"#B49A72",accentSoft:"#2A251D",accentInk:"#14110C"}
+  },
+  fonts:{display:"Archivo",body:"Manrope",mono:"Space Mono"},
+  radius:"normal"
+};
+function hexAlpha(hex,a){
+  let h = String(hex||"#000").replace("#","");
+  if(h.length===3) h = h.split("").map(c=>c+c).join("");
+  const n = parseInt(h,16)||0;
+  return "rgba("+((n>>16)&255)+","+((n>>8)&255)+","+(n&255)+","+a+")";
+}
+function applyTheme(t){
+  t = t||{};
+  const L = Object.assign({}, THEME_DEFAULT.colors.light, (t.colors||{}).light||{});
+  const D = Object.assign({}, THEME_DEFAULT.colors.dark, (t.colors||{}).dark||{});
+  const f = Object.assign({}, THEME_DEFAULT.fonts, t.fonts||{});
+  const fams = [...new Set([f.display,f.body,f.mono])].map(n=>FONT_URLS[n]||encodeURIComponent(n).replace(/%20/g,"+"));
+  let link = document.getElementById("theme-fonts");
+  if(!link){ link = document.createElement("link"); link.id = "theme-fonts"; link.rel = "stylesheet"; document.head.appendChild(link); }
+  link.href = "https://fonts.googleapis.com/css2?"+fams.map(x=>"family="+x).join("&")+"&display=swap";
+  const rads = {compact:["14px","10px","7px"], normal:["22px","14px","9px"], round:["32px","18px","12px"]};
+  const rad = rads[t.radius||"normal"]||rads.normal;
+  const vars = m=>"--bg:"+m.bg+";--surface:"+m.surface+";--surface-2:"+m.surface2+";--ink:"+m.ink+";--muted:"+m.muted+";--line:"+hexAlpha(m.ink,.13)+";--accent:"+m.accent+";--accent-soft:"+m.accentSoft+";--accent-ink:"+m.accentInk+";";
+  let st = document.getElementById("theme-style");
+  if(!st){ st = document.createElement("style"); st.id = "theme-style"; document.head.appendChild(st); }
+  st.textContent = ":root{"+vars(L)
+    +'--font-display:"'+f.display+'",system-ui,sans-serif;'
+    +'--font-body:"'+f.body+'",system-ui,sans-serif;'
+    +'--font-mono:"'+f.mono+'",ui-monospace,monospace;'
+    +"--r-lg:"+rad[0]+";--r-md:"+rad[1]+";--r-sm:"+rad[2]+"}\n"
+    +'[data-theme="dark"]{'+vars(D)+"}";
+}
+
 /* ---------- contenido editable (content.json) ---------- */
 let SETTINGS = {
   brandEmail:"hola@gmbasics.com", gmktEmail:"studio@gmkt.agency",
   phone:"+1 (305) 000-0000", whatsapp:"13050000000",
   location:"Naples, Florida \u00b7 USA", instagram:"", tiktok:"",
-  copyright:"\u00a9 2026 GM Basics \u00b7 RL Creative Group", freeShip:80, shipCost:6.95
+  copyright:"\u00a9 2026 GM Basics \u00b7 RL Creative Group", freeShip:80, shipCost:6.95,
+  brandName:"GM Basics", pageTitle:"", logoImg:"", logoImgDark:"", heroImg:""
 };
 function applyContent(c){
   if(c.i18n) I18N = c.i18n;
@@ -1731,9 +1788,24 @@ function applyContent(c){
     if(typeof SETTINGS.freeShip==="number") FREE_SHIP = SETTINGS.freeShip;
     if(typeof SETTINGS.shipCost==="number") SHIP_COST = SETTINGS.shipCost;
   }
+  if(c.theme) applyTheme(c.theme);
 }
 function applySettings(){
   const sgs = SETTINGS;
+  $$(".cfg-brand").forEach(sp=>{
+    const parts = String(sgs.brandName||"GM Basics").trim().split(/\s+/);
+    sp.innerHTML = parts.length>1
+      ? esc(parts.slice(0,-1).join(" "))+"&nbsp;<b>"+esc(parts[parts.length-1])+"</b>"
+      : "<b>"+esc(parts[0])+"</b>";
+  });
+  updateLogoForTheme();
+  if(sgs.logoImg){
+    let fav = document.querySelector("link[rel='icon']");
+    if(!fav){ fav = document.createElement("link"); fav.rel = "icon"; document.head.appendChild(fav); }
+    fav.href = sgs.logoImg;
+  }
+  if(sgs.pageTitle) document.title = sgs.pageTitle;
+  else if(sgs.brandName && sgs.brandName!=="GM Basics") document.title = sgs.brandName;
   const tel = "tel:+" + String(sgs.phone).replace(/\D/g,"");
   $$(".cfg-email").forEach(a=>{ a.href = "mailto:"+sgs.brandEmail; a.textContent = sgs.brandEmail; });
   $$(".cfg-gmkt-email").forEach(a=>{ a.href = "mailto:"+sgs.gmktEmail; a.textContent = sgs.gmktEmail; });
@@ -1748,6 +1820,20 @@ function applySettings(){
   const was = document.getElementById("cfg-was");
   if(was){ was.href = "https://wa.me/"+String(sgs.whatsapp).replace(/\D/g,""); was.target = "_blank"; was.rel = "noopener"; was.onclick = null; }
 }
+function updateLogoForTheme(){
+  const sgs = SETTINGS;
+  const src = (state.theme==="dark" && sgs.logoImgDark) ? sgs.logoImgDark : (sgs.logoImg||"");
+  if(!src) return;
+  $$(".logo").forEach(l=>{
+    const old = l.querySelector("svg.paw, img.paw-img");
+    if(!old) return;
+    if(old.tagName === "IMG"){ if(old.getAttribute("src")!==src) old.src = src; }
+    else old.outerHTML = `<img class="paw-img" src="${esc(src)}" alt="logo">`;
+  });
+}
+const _toggleTheme = toggleTheme;
+toggleTheme = function(){ _toggleTheme(); updateLogoForTheme(); };
+
 async function boot(){
   try{
     const res = await fetch("content.json?v="+Date.now(), {cache:"no-store"});
