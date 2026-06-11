@@ -1054,143 +1054,376 @@ function toggleMobileNav(force){
   nav.classList.toggle("open", force!==undefined ? force : !nav.classList.contains("open"));
 }
 
-/* ---------- mascota (frenchie fawn con máscara oscura, interactiva) ---------- */
+/* ---------- mascota: frenchie interactivo ---------- */
 function mascotSVG(){
   return `
-  <svg viewBox="0 0 230 210" id="mascot" role="img" aria-label="Mascota frenchie de GM Basics">
+  <style>
+  .hero-mascot{position:relative}
+  #pose-back{opacity:0;pointer-events:none}
+  #mascot.back #pose-sit{opacity:0}
+  #mascot.back #pose-back{opacity:1}
+  #pose-sit,#pose-back{transition:opacity .15s}
+  #mascot.run{animation:mRun .24s linear infinite}
+  @keyframes mRun{0%,100%{}50%{transform:translateY(-7px) scale(1.05,.95)}}
+  .bl{transform-box:fill-box;transform-origin:50% 100%;animation:mLeg 0.5s ease-in-out infinite alternate}
+  .bl2{animation-delay:.12s}.bl3{animation-delay:.24s}.bl4{animation-delay:.36s}
+  @keyframes mLeg{from{transform:rotate(-8deg)}to{transform:rotate(9deg)}}
+  .happy-eye{opacity:0}
+  #mascot.happy .pupil,#mascot.happy .pupil-hl,#mascot.happy .iris{opacity:0}
+  #mascot.happy .happy-eye{opacity:1}
+  #mascot.happy #m-tail{animation:wag .45s ease-in-out infinite}
+  #mouthball{opacity:0;transition:opacity .12s}
+  #mascot.carrying #mouthball{opacity:1}
+  .m-ball{position:absolute;width:46px;height:46px;left:calc(50% - 23px);bottom:2px;cursor:pointer;opacity:0;pointer-events:none;filter:drop-shadow(0 7px 7px rgba(0,0,0,.28));z-index:3;transition:opacity .25s}
+  .m-ball.show{opacity:1;pointer-events:auto}
+  .m-ball.bounce{animation:mBallDrop .75s cubic-bezier(.34,1.56,.64,1)}
+  @keyframes mBallDrop{0%{transform:translateY(-70px)}55%{transform:translateY(0)}75%{transform:translateY(-16px)}100%{transform:translateY(0)}}
+  .m-heart{position:absolute;font-size:1.25rem;pointer-events:none;z-index:4;animation:mHeart 1.5s ease-out forwards}
+  @keyframes mHeart{0%{opacity:0;transform:translateY(8px) scale(.5)}18%{opacity:1}100%{opacity:0;transform:translateY(-80px) scale(1.3) rotate(12deg)}}
+  .m-zzz{position:absolute;top:4%;right:10%;font-family:var(--font-display);font-weight:900;font-size:1.1rem;color:var(--muted);opacity:0;pointer-events:none;letter-spacing:.25em;z-index:4}
+  .sleepmode .m-zzz{opacity:1;animation:mZzz 2.6s ease-in-out infinite}
+  @keyframes mZzz{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  .sleepmode .m-lid{transform:scaleY(1)!important}
+  .sleepmode #m-tongue{opacity:0}
+  .sleepmode #m-tail{animation:none}
+  .sleepmode #mascot{animation:mBreathe 3.2s ease-in-out infinite}
+  @keyframes mBreathe{0%,100%{transform:scale(1)}50%{transform:scale(1.018,1.035)}}
+  .sleepmode.hero-mascot{animation:none}
+  </style>
+  <svg viewBox="0 0 240 220" id="mascot" role="img" aria-label="Mascota frenchie de GM Basics">
     <defs>
-      <radialGradient id="mgBody" cx="46%" cy="32%" r="80%">
-        <stop offset="0%" stop-color="#EFDCBB"/><stop offset="100%" stop-color="#D8B98B"/>
+      <radialGradient id="mgBody" cx="46%" cy="30%" r="85%">
+        <stop offset="0%" stop-color="#F2DFBC"/><stop offset="60%" stop-color="#E3C394"/><stop offset="100%" stop-color="#C9A267"/>
       </radialGradient>
-      <radialGradient id="mgHead" cx="50%" cy="34%" r="78%">
-        <stop offset="0%" stop-color="#F0DEC0"/><stop offset="100%" stop-color="#DDBF93"/>
+      <radialGradient id="mgHead" cx="50%" cy="32%" r="80%">
+        <stop offset="0%" stop-color="#F4E3C2"/><stop offset="65%" stop-color="#E5C797"/><stop offset="100%" stop-color="#D0AA70"/>
       </radialGradient>
       <linearGradient id="mgMask" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#564A3E"/><stop offset="100%" stop-color="#332B23"/>
+        <stop offset="0%" stop-color="#6E5B47"/><stop offset="55%" stop-color="#4A3B2D"/><stop offset="100%" stop-color="#2E251C"/>
       </linearGradient>
+      <linearGradient id="mgEar" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#D9A99B"/><stop offset="100%" stop-color="#B97F73"/>
+      </linearGradient>
+      <radialGradient id="mgBall" cx="35%" cy="30%" r="80%">
+        <stop offset="0%" stop-color="#FF9A6B"/><stop offset="70%" stop-color="#E85C32"/><stop offset="100%" stop-color="#C44322"/>
+      </radialGradient>
     </defs>
-    <ellipse cx="113" cy="196" rx="66" ry="9" fill="rgba(27,24,18,.16)"/>
 
-    <!-- colita -->
-    <path id="m-tail" d="M170 168 q16 -6 18 -18 q6 12 -6 22 q-8 6 -12 -4Z" fill="#D8B98B" stroke="#4A3F33" stroke-width="3.5" stroke-linejoin="round"/>
+    <!-- ===== POSE SENTADO ===== -->
+    <g id="pose-sit">
+      <ellipse cx="115" cy="198" rx="68" ry="9" fill="rgba(27,24,18,.16)"/>
+      <path id="m-tail" d="M172 168 q17 -7 19 -19 q7 13 -6 23 q-9 7 -13 -4Z" fill="#DFBC8C" stroke="#54422F" stroke-width="3.5" stroke-linejoin="round"/>
+      <path d="M62 152 Q60 198 115 198 Q170 198 168 152 Q166 126 115 124 Q64 126 62 152Z" fill="url(#mgBody)" stroke="#54422F" stroke-width="3.5"/>
+      <path d="M97 131 Q115 125 133 131 Q140 164 115 180 Q90 164 97 131Z" fill="#FAF5EA"/>
+      <path d="M84 158 q-5 23 2 33 q6 6 16 4 q4 -2 2 -8 l-4 -29Z" fill="#EBD3A8" stroke="#54422F" stroke-width="3.2"/>
+      <path d="M146 158 q5 23 -2 33 q-6 6 -16 4 q-4 -2 -2 -8 l4 -29Z" fill="#EBD3A8" stroke="#54422F" stroke-width="3.2"/>
+      <ellipse cx="94" cy="194" rx="15" ry="8.5" fill="#F3E4C2" stroke="#54422F" stroke-width="3.2"/>
+      <ellipse cx="136" cy="194" rx="15" ry="8.5" fill="#F3E4C2" stroke="#54422F" stroke-width="3.2"/>
+      <path d="M88 192 v7 M94 193 v7 M100 192 v7 M130 192 v7 M136 193 v7 M142 192 v7" stroke="#54422F" stroke-width="2" stroke-linecap="round" opacity=".5"/>
 
-    <!-- cuerpo sentado -->
-    <path d="M62 152 Q60 196 113 196 Q166 196 164 152 Q162 126 113 124 Q64 126 62 152Z" fill="url(#mgBody)" stroke="#4A3F33" stroke-width="4"/>
-    <!-- pecho blanco -->
-    <path d="M96 132 Q113 126 130 132 Q136 162 113 178 Q90 162 96 132Z" fill="#F7F2E7"/>
-    <!-- patitas delanteras -->
-    <path d="M84 158 q-4 22 2 32 q6 6 16 4 q4 -2 2 -8 l-4 -28Z" fill="#E8D3AC" stroke="#4A3F33" stroke-width="3.5"/>
-    <path d="M142 158 q4 22 -2 32 q-6 6 -16 4 q-4 -2 -2 -8 l4 -28Z" fill="#E8D3AC" stroke="#4A3F33" stroke-width="3.5"/>
-    <ellipse cx="93" cy="192" rx="14" ry="8" fill="#F1E2C2" stroke="#4A3F33" stroke-width="3.5"/>
-    <ellipse cx="133" cy="192" rx="14" ry="8" fill="#F1E2C2" stroke="#4A3F33" stroke-width="3.5"/>
-    <path d="M88 190 v6 M93 191 v6 M98 190 v6 M128 190 v6 M133 191 v6 M138 190 v6" stroke="#4A3F33" stroke-width="2" stroke-linecap="round" opacity=".55"/>
+      <g id="m-head">
+        <g class="m-ear m-ear-l">
+          <path d="M50 76 Q31 6 80 19 Q97 38 88 78 Z" fill="#DFBC8C" stroke="#54422F" stroke-width="3.5" stroke-linejoin="round"/>
+          <path d="M59 63 Q52 25 76 31 Q86 46 80 67 Z" fill="url(#mgEar)"/>
+        </g>
+        <g class="m-ear m-ear-r">
+          <path d="M180 76 Q199 6 150 19 Q133 38 142 78 Z" fill="#DFBC8C" stroke="#54422F" stroke-width="3.5" stroke-linejoin="round"/>
+          <path d="M171 63 Q178 25 154 31 Q144 46 150 67 Z" fill="url(#mgEar)"/>
+        </g>
+        <path d="M48 98 Q48 41 115 41 Q182 41 182 98 Q182 147 115 147 Q48 147 48 98Z" fill="url(#mgHead)" stroke="#54422F" stroke-width="3.5"/>
+        <path d="M111 43 Q115 41 119 43 L117 70 Q115 73 113 70 Z" fill="#FAF5EA"/>
+        <path d="M72 96 Q78 77 100 79 Q112 85 115 104 Q118 85 130 79 Q152 77 158 96 Q167 119 148 135 Q132 146 115 146 Q98 146 82 135 Q63 119 72 96Z" fill="url(#mgMask)" opacity=".94"/>
+        <path d="M88 63 q27 -10 54 0" fill="none" stroke="#BC9866" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+        <path d="M94 55 q21 -7 42 0" fill="none" stroke="#BC9866" stroke-width="2.4" stroke-linecap="round" opacity=".45"/>
+        <path d="M80 72 q10 -4 19 -1" fill="none" stroke="#BC9866" stroke-width="2.2" stroke-linecap="round" opacity=".4"/>
+        <path d="M141 71 q9 -3 19 1" fill="none" stroke="#BC9866" stroke-width="2.2" stroke-linecap="round" opacity=".4"/>
+        <circle cx="73" cy="120" r="4" fill="#D89A8C" opacity=".4"/>
+        <circle cx="157" cy="120" r="4" fill="#D89A8C" opacity=".4"/>
 
-    <!-- cabeza (grupo que gira hacia el cursor) -->
-    <g id="m-head">
-      <!-- orejas grandes de murciélago -->
-      <g class="m-ear m-ear-l">
-        <path d="M50 76 Q32 6 80 20 Q96 38 88 78 Z" fill="#D8B98B" stroke="#4A3F33" stroke-width="4" stroke-linejoin="round"/>
-        <path d="M59 64 Q52 26 75 32 Q85 46 80 68 Z" fill="#C2938A"/>
-        <path d="M55 36 Q60 22 70 22" fill="none" stroke="#4A3F33" stroke-width="2.5" stroke-linecap="round" opacity=".4"/>
+        <g class="eye">
+          <ellipse cx="88" cy="98" rx="13.5" ry="14.5" fill="#FFFDF7" stroke="#2A231C" stroke-width="2.8"/>
+          <circle class="iris" cx="89" cy="99" r="8.6" fill="#6B4423"/>
+          <circle class="pupil" cx="89" cy="99" r="4.6" fill="#16100A"/>
+          <circle class="pupil-hl" cx="92.5" cy="95" r="2.6" fill="#fff"/>
+          <circle class="pupil-hl" cx="86" cy="102" r="1.2" fill="#fff" opacity=".8"/>
+          <path class="m-lid" d="M74 83 h28 v15 q-14 9 -28 0 Z" fill="#41342A"/>
+          <path class="happy-eye" d="M76 99 q12 11 24 0" fill="none" stroke="#16100A" stroke-width="4" stroke-linecap="round"/>
+        </g>
+        <g class="eye">
+          <ellipse cx="142" cy="98" rx="13.5" ry="14.5" fill="#FFFDF7" stroke="#2A231C" stroke-width="2.8"/>
+          <circle class="iris" cx="141" cy="99" r="8.6" fill="#6B4423"/>
+          <circle class="pupil" cx="141" cy="99" r="4.6" fill="#16100A"/>
+          <circle class="pupil-hl" cx="144.5" cy="95" r="2.6" fill="#fff"/>
+          <circle class="pupil-hl" cx="138" cy="102" r="1.2" fill="#fff" opacity=".8"/>
+          <path class="m-lid" d="M128 83 h28 v15 q-14 9 -28 0 Z" fill="#41342A"/>
+          <path class="happy-eye" d="M130 99 q12 11 24 0" fill="none" stroke="#16100A" stroke-width="4" stroke-linecap="round"/>
+        </g>
+
+        <path d="M115 92 Q139 94 139 117 Q139 137 115 139 Q91 137 91 117 Q91 94 115 92Z" fill="#5F5043" opacity=".5"/>
+        <path d="M104 106 q11 -8 22 0 q5 5 0 10 q-11 8 -22 0 q-5 -5 0 -10Z" fill="#1E1A16"/>
+        <ellipse cx="109" cy="110" rx="2.4" ry="3.8" fill="#3F3A34"/>
+        <ellipse cx="121" cy="110" rx="2.4" ry="3.8" fill="#3F3A34"/>
+        <path d="M111 107 q4 -2.5 8 0" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round" opacity=".35"/>
+        <path d="M115 116 v9" stroke="#1E1A16" stroke-width="3.4" stroke-linecap="round"/>
+        <path d="M101 127 q14 11 28 0" fill="none" stroke="#1E1A16" stroke-width="3.4" stroke-linecap="round"/>
+        <path id="m-tongue" d="M107 130 q8 16 16 0 q-2 13 -8 14 q-6 -1 -8 -14Z" fill="#E88B80" stroke="#BC6258" stroke-width="2"/>
+        <circle id="mouthball" cx="115" cy="141" r="12" fill="url(#mgBall)" stroke="#A33518" stroke-width="2"/>
       </g>
-      <g class="m-ear m-ear-r">
-        <path d="M180 76 Q198 6 150 20 Q134 38 142 78 Z" fill="#D8B98B" stroke="#4A3F33" stroke-width="4" stroke-linejoin="round"/>
-        <path d="M171 64 Q178 26 155 32 Q145 46 150 68 Z" fill="#C2938A"/>
-        <path d="M175 36 Q170 22 160 22" fill="none" stroke="#4A3F33" stroke-width="2.5" stroke-linecap="round" opacity=".4"/>
-      </g>
 
-      <!-- cráneo ancho -->
-      <path d="M48 98 Q48 42 115 42 Q182 42 182 98 Q182 146 115 146 Q48 146 48 98Z" fill="url(#mgHead)" stroke="#4A3F33" stroke-width="4"/>
-      <!-- raya blanca de la frente (como en la foto) -->
-      <path d="M111 44 Q115 42 119 44 L117 70 Q115 73 113 70 Z" fill="#F7F2E7"/>
-      <!-- máscara oscura alrededor de ojos y hocico -->
-      <path d="M72 96 Q78 78 100 80 Q112 86 113 104 Q113 86 126 80 Q150 78 158 96 Q166 118 148 134 Q132 145 115 145 Q98 145 82 134 Q64 118 72 96Z" fill="url(#mgMask)" opacity=".92"/>
-
-      <!-- arrugas de la frente -->
-      <path d="M88 64 q27 -10 54 0" fill="none" stroke="#B69468" stroke-width="3" stroke-linecap="round" opacity=".7"/>
-      <path d="M94 56 q21 -7 42 0" fill="none" stroke="#B69468" stroke-width="2.5" stroke-linecap="round" opacity=".5"/>
-
-      <!-- ojos -->
-      <g class="eye">
-        <ellipse cx="88" cy="98" rx="13.5" ry="14" fill="#FFFDF7" stroke="#2A231C" stroke-width="3"/>
-        <circle class="pupil" cx="89" cy="99" r="7.5" fill="#4A2E16"/>
-        <circle class="pupil" cx="89" cy="99" r="3.6" fill="#1C130B"/>
-        <circle class="pupil-hl" cx="92" cy="95.5" r="2.2" fill="#fff"/>
-        <path class="m-lid" d="M74.5 84 h27 v14.5 q-13.5 8 -27 0 Z" fill="#3E352B"/>
-      </g>
-      <g class="eye">
-        <ellipse cx="142" cy="98" rx="13.5" ry="14" fill="#FFFDF7" stroke="#2A231C" stroke-width="3"/>
-        <circle class="pupil" cx="141" cy="99" r="7.5" fill="#4A2E16"/>
-        <circle class="pupil" cx="141" cy="99" r="3.6" fill="#1C130B"/>
-        <circle class="pupil-hl" cx="144" cy="95.5" r="2.2" fill="#fff"/>
-        <path class="m-lid" d="M128.5 84 h27 v14.5 q-13.5 8 -27 0 Z" fill="#3E352B"/>
-      </g>
-
-      <!-- hocico -->
-      <path d="M115 92 Q138 94 138 116 Q138 136 115 138 Q92 136 92 116 Q92 94 115 92Z" fill="#5A4D40" opacity=".55"/>
-      <path d="M104 106 q11 -8 22 0 q5 5 0 10 q-11 8 -22 0 q-5 -5 0 -10Z" fill="#23201C"/>
-      <ellipse cx="109" cy="110" rx="2.4" ry="3.6" fill="#3F3A34"/>
-      <ellipse cx="121" cy="110" rx="2.4" ry="3.6" fill="#3F3A34"/>
-      <path d="M115 116 v9" stroke="#23201C" stroke-width="3.5" stroke-linecap="round"/>
-      <path d="M101 127 q14 11 28 0" fill="none" stroke="#23201C" stroke-width="3.5" stroke-linecap="round"/>
-      <!-- lengua jadeando -->
-      <path id="m-tongue" d="M107 130 q8 16 16 0 q-2 12 -8 13 q-6 -1 -8 -13Z" fill="#E2837A" stroke="#B95E58" stroke-width="2"/>
-      <!-- cachetes -->
-      <circle cx="76" cy="118" r="3" fill="#C2938A" opacity=".5"/>
-      <circle cx="154" cy="118" r="3" fill="#C2938A" opacity=".5"/>
+      <path d="M74 141 Q115 159 156 141 L154 152 Q115 167 76 152 Z" fill="#5C4632" stroke="#3D2E20" stroke-width="3" stroke-linejoin="round"/>
+      <circle cx="115" cy="159" r="9" fill="#E3C795" stroke="#3D2E20" stroke-width="2.8"/>
+      <text x="115" y="163" text-anchor="middle" font-size="8" font-family="Archivo,sans-serif" font-weight="900" fill="#3D2E20">GM</text>
     </g>
 
-    <!-- collar + placa GM -->
-    <path d="M74 140 Q115 158 156 140 L154 151 Q115 166 76 151 Z" fill="var(--accent)" stroke="#4A3F33" stroke-width="3.5" stroke-linejoin="round"/>
-    <circle cx="115" cy="158" r="9" fill="#D9C9A8" stroke="#4A3F33" stroke-width="3"/>
-    <text x="115" y="162" text-anchor="middle" font-size="8" font-family="Archivo,sans-serif" font-weight="900" fill="#4A3F33">GM</text>
+    <!-- ===== POSE PANZA ARRIBA ===== -->
+    <g id="pose-back">
+      <ellipse cx="120" cy="196" rx="80" ry="9" fill="rgba(27,24,18,.16)"/>
+      <path d="M186 168 q14 -10 12 -22 q10 10 0 22 q-6 7 -12 0Z" fill="#DFBC8C" stroke="#54422F" stroke-width="3.2" stroke-linejoin="round"/>
+      <ellipse cx="125" cy="170" rx="66" ry="28" fill="url(#mgBody)" stroke="#54422F" stroke-width="3.5"/>
+      <ellipse cx="130" cy="166" rx="42" ry="17" fill="#FAF5EA"/>
+      <g class="bl"><path d="M92 146 q-2 -22 6 -26 q8 -2 11 4 q3 8 -3 24Z" fill="#EBD3A8" stroke="#54422F" stroke-width="3"/><ellipse cx="98" cy="121" rx="8.5" ry="6" fill="#F3E4C2" stroke="#54422F" stroke-width="2.8"/><circle cx="95" cy="120" r="1.6" fill="#D89A8C"/><circle cx="100" cy="119" r="1.6" fill="#D89A8C"/></g>
+      <g class="bl bl2"><path d="M114 142 q-2 -26 6 -30 q8 -2 11 4 q3 9 -3 28Z" fill="#EBD3A8" stroke="#54422F" stroke-width="3"/><ellipse cx="120" cy="113" rx="8.5" ry="6" fill="#F3E4C2" stroke="#54422F" stroke-width="2.8"/><circle cx="117" cy="112" r="1.6" fill="#D89A8C"/><circle cx="122" cy="111" r="1.6" fill="#D89A8C"/></g>
+      <g class="bl bl3"><path d="M138 142 q-2 -26 6 -30 q8 -2 11 4 q3 9 -3 28Z" fill="#EBD3A8" stroke="#54422F" stroke-width="3"/><ellipse cx="144" cy="113" rx="8.5" ry="6" fill="#F3E4C2" stroke="#54422F" stroke-width="2.8"/><circle cx="141" cy="112" r="1.6" fill="#D89A8C"/><circle cx="146" cy="111" r="1.6" fill="#D89A8C"/></g>
+      <g class="bl bl4"><path d="M160 146 q-2 -22 6 -26 q8 -2 11 4 q3 8 -3 24Z" fill="#EBD3A8" stroke="#54422F" stroke-width="3"/><ellipse cx="166" cy="121" rx="8.5" ry="6" fill="#F3E4C2" stroke="#54422F" stroke-width="2.8"/><circle cx="163" cy="120" r="1.6" fill="#D89A8C"/><circle cx="168" cy="119" r="1.6" fill="#D89A8C"/></g>
+      <g>
+        <path d="M30 150 Q20 120 46 124 Q56 132 52 152 Z" fill="#DFBC8C" stroke="#54422F" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M76 142 Q90 118 70 116 Q58 122 60 140 Z" fill="#DFBC8C" stroke="#54422F" stroke-width="3" stroke-linejoin="round"/>
+        <circle cx="56" cy="158" r="29" fill="url(#mgHead)" stroke="#54422F" stroke-width="3.5"/>
+        <path d="M38 160 Q40 142 56 142 Q72 142 74 160 Q74 180 56 184 Q38 180 38 160Z" fill="url(#mgMask)" opacity=".92"/>
+        <path d="M44 154 q11 10 22 0" fill="none" stroke="#16100A" stroke-width="3.6" stroke-linecap="round"/>
+        <path d="M44 154 q-3 -6 2 -8 M66 154 q3 -6 -2 -8" stroke="#16100A" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+        <path d="M48 168 q7 5 14 0" fill="none" stroke="#16100A" stroke-width="3" stroke-linecap="round"/>
+        <path d="M50 170 q5 12 11 1 q0 9 -5 10 q-5 0 -6 -11Z" fill="#E88B80" stroke="#BC6258" stroke-width="1.8"/>
+        <path d="M52 160 q4 -3 8 0 q2 3 0 5 q-4 3 -8 0 q-2 -2 0 -5Z" fill="#1E1A16"/>
+      </g>
+    </g>
   </svg>
-  <div class="woof" id="m-woof">¡Woof!</div>`;
+  <div class="woof" id="m-woof">¡Woof!</div>
+  <svg class="m-ball" id="m-ball" viewBox="0 0 46 46" aria-label="Pelota">
+    <circle cx="23" cy="23" r="21" fill="url(#mgBall)" stroke="#A33518" stroke-width="2.5"/>
+    <path d="M4 18 Q23 28 42 18 M14 4 Q18 23 14 42" fill="none" stroke="#A33518" stroke-width="2.5" opacity=".7"/>
+    <circle cx="15" cy="13" r="5" fill="rgba(255,255,255,.45)"/>
+  </svg>
+  <div class="m-zzz">z z z</div>`;
 }
+
 function initMascot(){
   if(SETTINGS.heroImg){
     $("#mascot-wrap").innerHTML = `<img src="${esc(SETTINGS.heroImg)}" alt="">`;
     return;
   }
-  $("#mascot-wrap").innerHTML = mascotSVG();
-  const wrap = $("#mascot-wrap"), svg = $("#mascot");
+  const wrap = $("#mascot-wrap");
+  wrap.innerHTML = mascotSVG();
+  const svg = $("#mascot"), ball = $("#m-ball");
+  const head = svg.querySelector("#m-head");
+  const can = el=>typeof el.animate === "function";
+  let busy = false, sleeping = false, tilting = false, ballReady = false;
+  let lastActive = Date.now(), lastClick = 0;
+  let petDist = 0, petWindow = 0, petCool = 0;
 
-  /* ladrido al hacer clic */
-  wrap.addEventListener("click", ()=>{
-    wrap.classList.remove("boing"); void wrap.offsetWidth; wrap.classList.add("boing");
+  /* ---- burbuja ---- */
+  let sayTimer;
+  function say(txt, ms){
     const w = $("#m-woof");
+    w.textContent = txt;
     w.classList.add("show");
-    setTimeout(()=>w.classList.remove("show"), 1300);
+    clearTimeout(sayTimer);
+    sayTimer = setTimeout(()=>w.classList.remove("show"), ms||1300);
+  }
+  const BARKS = ["¡Woof!","¡Woof woof!","¡Arf!","¡Woof! 🐾"];
+
+  /* ---- dormir / despertar ---- */
+  function fallAsleep(){
+    if(busy || sleeping) return;
+    sleeping = true;
+    wrap.classList.add("sleepmode");
+  }
+  function wake(){
+    if(!sleeping) return;
+    sleeping = false;
+    wrap.classList.remove("sleepmode");
+    const ear = svg.querySelector(".m-ear-l");
+    ear.classList.add("flick"); setTimeout(()=>ear.classList.remove("flick"), 600);
+    say("¿Mmm? ¡Woof!");
+  }
+  function active(){ lastActive = Date.now(); if(sleeping) wake(); }
+  setInterval(()=>{ if(Date.now()-lastActive > 30000) fallAsleep(); }, 5000);
+
+  /* ---- caricias (mover el cursor sobre el perrito) ---- */
+  let lastPet = null;
+  svg.addEventListener("pointermove", e=>{
+    if(sleeping || busy) return;
+    const now = Date.now();
+    if(lastPet && now - petWindow < 1300){
+      petDist += Math.abs(e.clientX-lastPet.x) + Math.abs(e.clientY-lastPet.y);
+    } else { petDist = 0; petWindow = now; }
+    lastPet = {x:e.clientX, y:e.clientY};
+    if(petDist > 320 && now > petCool){
+      petCool = now + 3500; petDist = 0;
+      svg.classList.add("happy");
+      say("❤️", 1600);
+      for(let i=0;i<4;i++){
+        const h = document.createElement("div");
+        h.className = "m-heart";
+        h.textContent = ["❤️","🤎","💛"][i%3];
+        h.style.left = (30 + Math.random()*40) + "%";
+        h.style.top = (18 + Math.random()*25) + "%";
+        h.style.animationDelay = (i*0.18)+"s";
+        wrap.appendChild(h);
+        setTimeout(()=>h.remove(), 2200);
+      }
+      setTimeout(()=>svg.classList.remove("happy"), 2000);
+    }
+  }, {passive:true});
+
+  /* ---- panza arriba ---- */
+  function rollOver(){
+    if(busy || sleeping) return;
+    busy = true;
+    const land = ()=>{
+      svg.classList.add("back");
+      say("¡Ráscame la pancita!", 1800);
+      setTimeout(()=>{
+        svg.classList.remove("back");
+        if(can(svg)) svg.animate(
+          [{transform:"translateY(0)"},{transform:"translateY(-16px)"},{transform:"translateY(0)"}],
+          {duration:380, easing:"cubic-bezier(.34,1.56,.64,1)"});
+        busy = false;
+      }, 2800);
+    };
+    if(can(svg)){
+      const a = svg.animate(
+        [{transform:"translateY(0) rotate(0deg)"},{transform:"translateY(-34px) rotate(8deg)"},{transform:"translateY(0) rotate(0deg)"}],
+        {duration:520, easing:"ease-in-out"});
+      setTimeout(land, 250);
+    } else land();
+  }
+
+  /* ---- pelota ---- */
+  function dropBallAtFeet(){
+    ball.style.transform = "translateX(0)";
+    ball.classList.add("show","bounce");
+    setTimeout(()=>ball.classList.remove("bounce"), 800);
+    ballReady = true;
+  }
+  function fetchBall(){
+    if(busy || sleeping) return;
+    busy = true;
+    say("¡Ya vengo!", 1100);
+    if(!can(svg)){ svg.classList.add("carrying"); setTimeout(()=>{svg.classList.remove("carrying");dropBallAtFeet();busy=false;},900); return; }
+    svg.classList.add("run");
+    const out = svg.animate(
+      [{transform:"translateX(0)"},{transform:"translateX(640px)"}],
+      {duration:850, easing:"ease-in", fill:"forwards"});
+    setTimeout(()=>{
+      svg.classList.add("carrying");
+      const back = svg.animate(
+        [{transform:"translateX(640px)"},{transform:"translateX(0)"}],
+        {duration:850, easing:"ease-out", fill:"forwards"});
+      setTimeout(()=>{
+        svg.classList.remove("run");
+        out.cancel(); back.cancel();
+        svg.classList.remove("carrying");
+        dropBallAtFeet();
+        say("¡A jugar! 🎾", 1400);
+        busy = false;
+      }, 880);
+    }, 880);
+  }
+  function throwBall(){
+    if(busy || !ballReady || sleeping) return;
+    busy = true; ballReady = false;
+    const dx = (Math.random() < .5 ? -1 : 1) * (90 + Math.random()*110);
+    if(can(ball)){
+      ball.animate(
+        [{transform:"translateX(0) translateY(0)"},
+         {transform:"translateX("+(dx*.55)+"px) translateY(-90px)"},
+         {transform:"translateX("+dx+"px) translateY(0)"}],
+        {duration:620, easing:"linear", fill:"forwards"});
+    }
+    setTimeout(()=>{
+      svg.classList.add("run");
+      if(can(svg)){
+        svg.animate([{transform:"translateX(0)"},{transform:"translateX("+dx+"px)"}],
+          {duration:430, easing:"ease-in-out", fill:"forwards"});
+      }
+      setTimeout(()=>{
+        ball.classList.remove("show");
+        ball.getAnimations && ball.getAnimations().forEach(a=>a.cancel());
+        svg.classList.add("carrying");
+        if(can(svg)){
+          svg.animate([{transform:"translateX("+dx+"px)"},{transform:"translateX(0)"}],
+            {duration:480, easing:"ease-in-out", fill:"forwards"}).onfinish = e=>{
+              svg.getAnimations().forEach(a=>a.cancel());
+            };
+        }
+        setTimeout(()=>{
+          svg.classList.remove("run");
+          svg.classList.remove("carrying");
+          dropBallAtFeet();
+          busy = false;
+        }, 520);
+      }, 460);
+    }, 480);
+  }
+  ball.addEventListener("click", throwBall);
+
+  /* ---- clic: ladrar / doble clic: panza arriba ---- */
+  wrap.addEventListener("click", e=>{
+    if(e.target.closest("#m-ball")) return;
+    active();
+    if(sleeping){ wake(); return; }
+    const now = Date.now();
+    if(now - lastClick < 380){ lastClick = 0; rollOver(); return; }
+    lastClick = now;
+    if(busy) return;
+    wrap.classList.remove("boing"); void wrap.offsetWidth; wrap.classList.add("boing");
+    say(BARKS[Math.floor(Math.random()*BARKS.length)]);
   });
+
+  /* ---- gestos sueltos ---- */
+  function headTilt(){
+    if(busy || sleeping) return;
+    tilting = true;
+    head.style.transform = "rotate("+(Math.random()<.5?-11:11)+"deg)";
+    setTimeout(()=>{ head.style.transform = ""; tilting = false; }, 1000);
+  }
+  function sneeze(){
+    if(busy || sleeping) return;
+    tilting = true;
+    head.style.transform = "rotate(0deg) translateY(7px) scale(.97)";
+    say("¡Achís!", 900);
+    setTimeout(()=>{ head.style.transform = ""; tilting = false; }, 450);
+  }
+  window._mascot = {rollOver, fetchBall, throwBall, fallAsleep, wake, headTilt, sneeze, say};
 
   if(reduceMotion()) return;
 
-  /* ojos y cabeza siguen el cursor */
-  const head = svg.querySelector("#m-head");
+  /* ---- ojos y cabeza siguen el cursor ---- */
   document.addEventListener("mousemove", e=>{
-    if(!svg.isConnected || state.view!=="home") return;
+    active();
+    if(!svg.isConnected || state.view!=="home" || tilting || sleeping) return;
     const r = svg.getBoundingClientRect();
     const cx = r.left + r.width/2, cy = r.top + r.height*0.45;
     const dx = (e.clientX - cx) / (window.innerWidth/2);
     const dy = (e.clientY - cy) / (window.innerHeight/2);
     const ndx = Math.max(-1,Math.min(1,dx)), ndy = Math.max(-1,Math.min(1,dy));
     const mx = ndx*4.4, my = ndy*3.4;
-    svg.querySelectorAll(".pupil,.pupil-hl").forEach(p=>{
+    svg.querySelectorAll(".pupil,.pupil-hl,.iris").forEach(p=>{
       p.setAttribute("transform", `translate(${mx.toFixed(2)} ${my.toFixed(2)})`);
     });
     head.style.transform = `rotate(${(ndx*4).toFixed(2)}deg) translate(${(ndx*2.5).toFixed(1)}px, ${(ndy*1.8).toFixed(1)}px)`;
-    /* parallax sutil de fondo */
     $$(".blob").forEach((b,i)=>{
       const f = (i+1)*5;
       b.style.translate = `${(dx*f).toFixed(1)}px ${(dy*f).toFixed(1)}px`;
     });
   }, {passive:true});
 
-  /* parpadeo aleatorio */
+  /* ---- parpadeo ---- */
   (function blink(){
     const delay = 2400 + Math.random()*3200;
     setTimeout(()=>{
-      if(svg.isConnected){
+      if(svg.isConnected && !sleeping){
         svg.classList.add("blink");
         setTimeout(()=>svg.classList.remove("blink"), 150);
         if(Math.random()<.25) setTimeout(()=>{ svg.classList.add("blink"); setTimeout(()=>svg.classList.remove("blink"),140); }, 260);
@@ -1199,18 +1432,28 @@ function initMascot(){
     }, delay);
   })();
 
-  /* sacudida de orejas ocasional */
-  (function flick(){
-    const delay = 3800 + Math.random()*5200;
+  /* ---- vida propia: hace cosas solo ---- */
+  (function idle(){
+    const delay = 7000 + Math.random()*7000;
     setTimeout(()=>{
-      if(svg.isConnected){
-        const ear = svg.querySelector(Math.random()<.5 ? ".m-ear-l" : ".m-ear-r");
-        ear.classList.add("flick");
-        setTimeout(()=>ear.classList.remove("flick"), 600);
+      if(svg.isConnected && !busy && !sleeping && state.view==="home"){
+        const r = Math.random();
+        if(r < .3){
+          const ear = svg.querySelector(Math.random()<.5 ? ".m-ear-l" : ".m-ear-r");
+          ear.classList.add("flick"); setTimeout(()=>ear.classList.remove("flick"), 600);
+        }
+        else if(r < .55) headTilt();
+        else if(r < .68) sneeze();
+        else if(r < .8) rollOver();
+        else if(!ballReady) fetchBall();
+        else headTilt();
       }
-      flick();
+      idle();
     }, delay);
   })();
+
+  /* ---- a los 5s trae la pelota por primera vez ---- */
+  setTimeout(()=>{ if(!ballReady && !busy && state.view==="home") fetchBall(); }, 5000);
 }
 
 /* ---------- arte de producto (SVG editable) ---------- */
