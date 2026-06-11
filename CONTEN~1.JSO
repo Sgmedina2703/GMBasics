@@ -1,0 +1,885 @@
+{
+  "settings": {
+    "brandEmail": "hola@gmbasics.com",
+    "gmktEmail": "studio@gmkt.agency",
+    "phone": "+1 (305) 000-0000",
+    "whatsapp": "13050000000",
+    "location": "Naples, Florida · USA",
+    "instagram": "",
+    "tiktok": "",
+    "copyright": "© 2026 GM Basics · RL Creative Group",
+    "freeShip": 80,
+    "shipCost": 6.95
+  },
+  "sizes": [
+    "S",
+    "M",
+    "L",
+    "XL"
+  ],
+  "i18n": {
+    "es": {
+      "nav.home": "Inicio",
+      "nav.collections": "Colecciones",
+      "nav.login": "Iniciar sesión",
+      "nav.account": "Mi cuenta",
+      "hero.eyebrow": "Premium lifestyle · Hecho con alma frenchie",
+      "hero.title": "Básicos que <em>nunca</em> son básicos.",
+      "hero.sub": "Ropa premium inspirada en tres bulldogs franceses con mucha personalidad. Calidad de lujo, espíritu juguetón y diseño que se siente tan bien como se ve.",
+      "hero.cta1": "Explorar colecciones",
+      "hero.cta2": "Ver destacados",
+      "feat.eyebrow": "Destacados",
+      "feat.title": "Los favoritos de la manada",
+      "feat.sub": "Arrastra para descubrir las piezas más queridas de cada colección.",
+      "story.eyebrow": "Nuestra historia",
+      "story.title": "Tres frenchies, una filosofía",
+      "story.p1": "GM Basics nació de algo muy simple: Kuky, Canelo y Kira, tres bulldogs franceses que nos enseñaron que la vida buena está en los básicos bien hechos: una siesta al sol, un paseo sin prisa, la compañía correcta.",
+      "story.p2": "Trasladamos esa filosofía a la ropa: cortes limpios, telas premium que duran años, y un toque de personalidad en cada pieza. Nada sobra, nada falta. Lo esencial, elevado.",
+      "story.p3": "Cada colección lleva el nombre y el carácter de quien la inspiró. Cuando vistes GM Basics, llevas parte de la manada contigo.",
+      "story.s1": "colecciones",
+      "story.s2": "idiomas, un estilo",
+      "story.s3": "frenchies fundadores",
+      "story.connect": "Conecta con la marca",
+      "story.cta": "Escríbenos →",
+      "contact.phone": "Teléfono",
+      "contact.base": "Base",
+      "cols.eyebrow": "Catálogo",
+      "cols.title": "Colecciones",
+      "cols.sub": "Cada colección tiene su propio carácter: desde la calma de Kira hasta la energía de Fútbol. Encuentra la tuya.",
+      "cols.pieces": "piezas",
+      "cols.explore": "Explorar",
+      "col.back": "← Todas las colecciones",
+      "col.filter.size": "Talla",
+      "col.filter.all": "Todas",
+      "col.sort": "Ordenar",
+      "col.sort.featured": "Destacados",
+      "col.sort.priceAsc": "Precio: menor a mayor",
+      "col.sort.priceDesc": "Precio: mayor a menor",
+      "col.sort.name": "Nombre A–Z",
+      "col.empty": "No hay piezas con esos filtros. Prueba otra talla.",
+      "p.quick": "Vista rápida",
+      "p.add": "Agregar",
+      "p.added": "Agregado al carrito",
+      "p.size": "Talla",
+      "p.qty": "Cantidad",
+      "p.addCart": "Agregar al carrito",
+      "p.pickSize": "Elige una talla primero",
+      "gmkt.title": "Marcas que se sienten vivas",
+      "gmkt.sub": "GMKT es el estudio creativo detrás de GM Basics. Ayudamos a negocios a construir marcas memorables: estrategia, diseño, contenido y publicidad bajo un mismo techo.",
+      "gmkt.pill1": "Estrategia",
+      "gmkt.pill2": "Diseño",
+      "gmkt.pill3": "Contenido",
+      "gmkt.pill4": "Publicidad",
+      "gmkt.m1t": "Qué hacemos",
+      "gmkt.m1p": "Construimos identidades de marca completas: del logo a la voz, de las redes a la pauta. Todo coherente, todo con intención.",
+      "gmkt.m2t": "Misión",
+      "gmkt.m2p": "Que cada negocio, sin importar su tamaño, tenga acceso a una marca de nivel mundial que conecte de verdad con su gente.",
+      "gmkt.m3t": "Visión",
+      "gmkt.m3p": "Ser el estudio de referencia para marcas bilingües en Estados Unidos y Latinoamérica: cercano, creativo y orientado a resultados.",
+      "gmkt.m4t": "Posicionamiento",
+      "gmkt.m4p": "Creatividad premium con mentalidad de negocio. No hacemos arte por arte: hacemos marcas que venden.",
+      "gmkt.svcEyebrow": "Servicios",
+      "gmkt.svcTitle": "Todo lo que tu marca necesita",
+      "gmkt.planEyebrow": "Planes",
+      "gmkt.planTitle": "Elige tu ritmo de crecimiento",
+      "gmkt.planCta": "Empezar",
+      "gmkt.planPop": "Más popular",
+      "gmkt.perMonth": "/mes",
+      "gmkt.pfEyebrow": "Portafolio",
+      "gmkt.pfTitle": "Trabajo que habla por sí solo",
+      "gmkt.before": "Antes",
+      "gmkt.beforeP": "Una panadería local con logo genérico, fotos oscuras y 400 seguidores que no interactuaban.",
+      "gmkt.after": "Después",
+      "gmkt.afterP": "Identidad cálida y reconocible, contenido que se comparte solo y +320% de pedidos por Instagram en 4 meses.",
+      "gmkt.ctEyebrow": "Contacto",
+      "gmkt.ctTitle": "Hablemos de tu proyecto",
+      "gmkt.ctNote": "Respondemos en menos de 24 horas hábiles. Primera consulta sin costo.",
+      "form.name": "Nombre",
+      "form.namePh": "Tu nombre",
+      "form.service": "Servicio de interés",
+      "form.msg": "Mensaje",
+      "form.msgPh": "Cuéntanos sobre tu marca…",
+      "form.send": "Enviar mensaje",
+      "form.sent": "¡Mensaje enviado! Te contactaremos pronto.",
+      "wish.eyebrow": "Tu selección",
+      "wish.title": "Favoritos",
+      "wish.sub": "Las piezas que guardaste para después. Aquí te esperan.",
+      "wish.empty": "Aún no tienes favoritos. Toca el corazón en cualquier producto para guardarlo aquí.",
+      "wish.browse": "Ver colecciones",
+      "cart.title": "Tu carrito",
+      "cart.empty": "Tu carrito está vacío. La manada tiene cosas lindas esperándote.",
+      "cart.browse": "Ir a comprar",
+      "cart.subtotal": "Subtotal",
+      "cart.ship": "Envío",
+      "cart.shipFree": "Gratis",
+      "cart.total": "Total",
+      "cart.checkout": "Finalizar compra",
+      "cart.freeShip1": "Te faltan {x} para envío gratis",
+      "cart.freeShip2": "¡Tienes envío gratis! 🐾",
+      "cart.remove": "Quitar",
+      "checkout.needLogin": "Inicia sesión para finalizar tu compra",
+      "checkout.done": "¡Pedido confirmado! Gracias por apoyar a la manada 🐾",
+      "auth.loginTitle": "Bienvenido de vuelta",
+      "auth.loginSub": "Inicia sesión para ver tus pedidos, favoritos y finalizar compras más rápido.",
+      "auth.regTitle": "Únete a la manada",
+      "auth.regSub": "Crea tu cuenta GM Basics en menos de un minuto.",
+      "auth.email": "Email",
+      "auth.pass": "Contraseña",
+      "auth.name": "Nombre completo",
+      "auth.loginBtn": "Iniciar sesión",
+      "auth.regBtn": "Crear cuenta",
+      "auth.toReg": "¿No tienes cuenta?",
+      "auth.toRegBtn": "Regístrate",
+      "auth.toLogin": "¿Ya tienes cuenta?",
+      "auth.toLoginBtn": "Inicia sesión",
+      "auth.welcome": "¡Hola de nuevo, {x}!",
+      "auth.created": "Cuenta creada. ¡Bienvenido, {x}!",
+      "auth.bad": "Email o contraseña incorrectos",
+      "auth.exists": "Ese email ya está registrado",
+      "acct.title": "Mi cuenta",
+      "acct.hello": "Hola, {x} 👋",
+      "acct.profile": "Perfil",
+      "acct.orders": "Pedidos",
+      "acct.wish": "Favoritos",
+      "acct.logout": "Cerrar sesión",
+      "acct.noOrders": "Aún no tienes pedidos. Tu primer paquete con olor a frenchie te espera.",
+      "acct.order": "Pedido",
+      "acct.status": "Procesando",
+      "acct.items": "artículos",
+      "acct.profileName": "Nombre",
+      "acct.profileEmail": "Email",
+      "acct.memberSince": "Miembro desde",
+      "acct.save": "Guardar cambios",
+      "acct.saved": "Perfil actualizado",
+      "footer.tag": "Básicos premium con alma de bulldog francés. Diseñado en Florida, querido en todas partes.",
+      "footer.shop": "Tienda",
+      "footer.brand": "Marca",
+      "footer.help": "Ayuda",
+      "footer.featured": "Destacados",
+      "footer.story": "Nuestra historia",
+      "footer.wish": "Favoritos",
+      "footer.shipping": "Envíos y devoluciones",
+      "footer.sizes": "Guía de tallas",
+      "footer.made": "Hecho con 🐾 en Naples, FL",
+      "toast.social": "Conecta tus redes en la configuración del sitio",
+      "toast.fav": "Guardado en favoritos",
+      "toast.unfav": "Quitado de favoritos",
+      "toast.ship": "Envío gratis en pedidos +$80 · Devoluciones 30 días",
+      "toast.sizes": "Corte regular. ¿Entre tallas? Elige la mayor.",
+      "toast.logout": "Sesión cerrada. ¡Vuelve pronto!"
+    },
+    "en": {
+      "nav.home": "Home",
+      "nav.collections": "Collections",
+      "nav.login": "Sign in",
+      "nav.account": "My account",
+      "hero.eyebrow": "Premium lifestyle · Made with frenchie soul",
+      "hero.title": "Basics that are <em>never</em> basic.",
+      "hero.sub": "Premium apparel inspired by three French bulldogs with big personalities. Luxury quality, playful spirit, and design that feels as good as it looks.",
+      "hero.cta1": "Explore collections",
+      "hero.cta2": "See featured",
+      "feat.eyebrow": "Featured",
+      "feat.title": "The pack's favorites",
+      "feat.sub": "Drag to discover the most loved pieces from every collection.",
+      "story.eyebrow": "Our story",
+      "story.title": "Three frenchies, one philosophy",
+      "story.p1": "GM Basics was born from something simple: Kuky, Canelo and Kira, three French bulldogs who taught us that the good life lives in well-made basics: a nap in the sun, an unhurried walk, the right company.",
+      "story.p2": "We brought that philosophy to clothing: clean cuts, premium fabrics that last for years, and a touch of personality in every piece. Nothing extra, nothing missing. The essential, elevated.",
+      "story.p3": "Every collection carries the name and character of who inspired it. When you wear GM Basics, you carry part of the pack with you.",
+      "story.s1": "collections",
+      "story.s2": "languages, one style",
+      "story.s3": "founding frenchies",
+      "story.connect": "Connect with the brand",
+      "story.cta": "Write to us →",
+      "contact.phone": "Phone",
+      "contact.base": "Home base",
+      "cols.eyebrow": "Catalog",
+      "cols.title": "Collections",
+      "cols.sub": "Every collection has its own character: from Kira's calm to Fútbol's energy. Find yours.",
+      "cols.pieces": "pieces",
+      "cols.explore": "Explore",
+      "col.back": "← All collections",
+      "col.filter.size": "Size",
+      "col.filter.all": "All",
+      "col.sort": "Sort",
+      "col.sort.featured": "Featured",
+      "col.sort.priceAsc": "Price: low to high",
+      "col.sort.priceDesc": "Price: high to low",
+      "col.sort.name": "Name A–Z",
+      "col.empty": "No pieces match those filters. Try another size.",
+      "p.quick": "Quick view",
+      "p.add": "Add",
+      "p.added": "Added to cart",
+      "p.size": "Size",
+      "p.qty": "Quantity",
+      "p.addCart": "Add to cart",
+      "p.pickSize": "Pick a size first",
+      "gmkt.title": "Brands that feel alive",
+      "gmkt.sub": "GMKT is the creative studio behind GM Basics. We help businesses build memorable brands: strategy, design, content and advertising under one roof.",
+      "gmkt.pill1": "Strategy",
+      "gmkt.pill2": "Design",
+      "gmkt.pill3": "Content",
+      "gmkt.pill4": "Advertising",
+      "gmkt.m1t": "What we do",
+      "gmkt.m1p": "We build complete brand identities: from logo to voice, from social media to paid ads. Everything coherent, everything intentional.",
+      "gmkt.m2t": "Mission",
+      "gmkt.m2p": "Every business, no matter its size, deserves access to a world-class brand that truly connects with its people.",
+      "gmkt.m3t": "Vision",
+      "gmkt.m3p": "To be the go-to studio for bilingual brands across the US and Latin America: close, creative and results-driven.",
+      "gmkt.m4t": "Positioning",
+      "gmkt.m4p": "Premium creativity with a business mindset. We don't make art for art's sake: we build brands that sell.",
+      "gmkt.svcEyebrow": "Services",
+      "gmkt.svcTitle": "Everything your brand needs",
+      "gmkt.planEyebrow": "Plans",
+      "gmkt.planTitle": "Pick your growth pace",
+      "gmkt.planCta": "Get started",
+      "gmkt.planPop": "Most popular",
+      "gmkt.perMonth": "/mo",
+      "gmkt.pfEyebrow": "Portfolio",
+      "gmkt.pfTitle": "Work that speaks for itself",
+      "gmkt.before": "Before",
+      "gmkt.beforeP": "A local bakery with a generic logo, dark photos and 400 followers who never engaged.",
+      "gmkt.after": "After",
+      "gmkt.afterP": "A warm, recognizable identity, content that shares itself and +320% Instagram orders in 4 months.",
+      "gmkt.ctEyebrow": "Contact",
+      "gmkt.ctTitle": "Let's talk about your project",
+      "gmkt.ctNote": "We reply within 24 business hours. First consultation is free.",
+      "form.name": "Name",
+      "form.namePh": "Your name",
+      "form.service": "Service of interest",
+      "form.msg": "Message",
+      "form.msgPh": "Tell us about your brand…",
+      "form.send": "Send message",
+      "form.sent": "Message sent! We'll be in touch soon.",
+      "wish.eyebrow": "Your picks",
+      "wish.title": "Wishlist",
+      "wish.sub": "The pieces you saved for later. They're waiting for you here.",
+      "wish.empty": "No favorites yet. Tap the heart on any product to save it here.",
+      "wish.browse": "Browse collections",
+      "cart.title": "Your cart",
+      "cart.empty": "Your cart is empty. The pack has nice things waiting for you.",
+      "cart.browse": "Start shopping",
+      "cart.subtotal": "Subtotal",
+      "cart.ship": "Shipping",
+      "cart.shipFree": "Free",
+      "cart.total": "Total",
+      "cart.checkout": "Checkout",
+      "cart.freeShip1": "You're {x} away from free shipping",
+      "cart.freeShip2": "You've got free shipping! 🐾",
+      "cart.remove": "Remove",
+      "checkout.needLogin": "Sign in to complete your purchase",
+      "checkout.done": "Order confirmed! Thanks for supporting the pack 🐾",
+      "auth.loginTitle": "Welcome back",
+      "auth.loginSub": "Sign in to see your orders, wishlist, and check out faster.",
+      "auth.regTitle": "Join the pack",
+      "auth.regSub": "Create your GM Basics account in under a minute.",
+      "auth.email": "Email",
+      "auth.pass": "Password",
+      "auth.name": "Full name",
+      "auth.loginBtn": "Sign in",
+      "auth.regBtn": "Create account",
+      "auth.toReg": "Don't have an account?",
+      "auth.toRegBtn": "Sign up",
+      "auth.toLogin": "Already have an account?",
+      "auth.toLoginBtn": "Sign in",
+      "auth.welcome": "Welcome back, {x}!",
+      "auth.created": "Account created. Welcome, {x}!",
+      "auth.bad": "Wrong email or password",
+      "auth.exists": "That email is already registered",
+      "acct.title": "My account",
+      "acct.hello": "Hi, {x} 👋",
+      "acct.profile": "Profile",
+      "acct.orders": "Orders",
+      "acct.wish": "Wishlist",
+      "acct.logout": "Sign out",
+      "acct.noOrders": "No orders yet. Your first frenchie-scented package awaits.",
+      "acct.order": "Order",
+      "acct.status": "Processing",
+      "acct.items": "items",
+      "acct.profileName": "Name",
+      "acct.profileEmail": "Email",
+      "acct.memberSince": "Member since",
+      "acct.save": "Save changes",
+      "acct.saved": "Profile updated",
+      "footer.tag": "Premium basics with French bulldog soul. Designed in Florida, loved everywhere.",
+      "footer.shop": "Shop",
+      "footer.brand": "Brand",
+      "footer.help": "Help",
+      "footer.featured": "Featured",
+      "footer.story": "Our story",
+      "footer.wish": "Wishlist",
+      "footer.shipping": "Shipping & returns",
+      "footer.sizes": "Size guide",
+      "footer.made": "Made with 🐾 in Naples, FL",
+      "toast.social": "Connect your social links in the site settings",
+      "toast.fav": "Saved to wishlist",
+      "toast.unfav": "Removed from wishlist",
+      "toast.ship": "Free shipping on orders $80+ · 30-day returns",
+      "toast.sizes": "Regular fit. Between sizes? Size up.",
+      "toast.logout": "Signed out. Come back soon!"
+    }
+  },
+  "collections": [
+    {
+      "id": "kuky",
+      "name": "Kuky",
+      "c1": "#9A7B54",
+      "c2": "#E6DAC8",
+      "mascot": "cream",
+      "desc": {
+        "es": "La líder de la manada. Piezas statement en tonos cálidos, para quien entra a un lugar y se nota.",
+        "en": "The pack leader. Statement pieces in warm tones, for those who walk in and get noticed."
+      },
+      "img": ""
+    },
+    {
+      "id": "canelo",
+      "name": "Canelo",
+      "c1": "#7C5C3A",
+      "c2": "#DECEB6",
+      "mascot": "brindle",
+      "desc": {
+        "es": "Dulce por fuera, fuerte por dentro. Básicos en tonos canela y crema con suavidad premium.",
+        "en": "Sweet outside, strong inside. Cinnamon and cream basics with premium softness."
+      },
+      "img": ""
+    },
+    {
+      "id": "kira",
+      "name": "Kira",
+      "c1": "#5E6960",
+      "c2": "#CFD5CC",
+      "mascot": "gray",
+      "desc": {
+        "es": "Calma y elegancia. Verdes salvia y grises piedra para días sin prisa.",
+        "en": "Calm and elegance. Sage greens and stone grays for unhurried days."
+      },
+      "img": ""
+    },
+    {
+      "id": "original",
+      "name": "Original",
+      "c1": "#1B1812",
+      "c2": "#CBC6BC",
+      "mascot": "black",
+      "desc": {
+        "es": "El ADN de GM Basics. Negro, hueso y el logo que empezó todo.",
+        "en": "The GM Basics DNA. Black, bone, and the logo that started it all."
+      },
+      "img": ""
+    },
+    {
+      "id": "frenchie",
+      "name": "Frenchie",
+      "c1": "#475869",
+      "c2": "#C8D2DC",
+      "mascot": "blue",
+      "desc": {
+        "es": "Un homenaje a la raza. Gráficos de bulldog francés con humor y mucho estilo.",
+        "en": "A tribute to the breed. French bulldog graphics with humor and style."
+      },
+      "img": ""
+    },
+    {
+      "id": "personalizable",
+      "name": "Personalizable",
+      "c1": "#6E5C76",
+      "c2": "#D6CEDA",
+      "mascot": "party",
+      "desc": {
+        "es": "Tu frenchie, tu nombre, tu diseño. Piezas únicas hechas para ti.",
+        "en": "Your frenchie, your name, your design. One-of-a-kind pieces made for you."
+      },
+      "img": ""
+    },
+    {
+      "id": "futbol",
+      "name": "Fútbol",
+      "c1": "#41604D",
+      "c2": "#C8D8CD",
+      "mascot": "sport",
+      "desc": {
+        "es": "La pasión del juego con corte premium. Jerseys y básicos para la afición con estilo.",
+        "en": "The passion of the game, premium cut. Jerseys and basics for stylish fans."
+      },
+      "img": ""
+    }
+  ],
+  "products": [
+    {
+      "id": "p1",
+      "col": "kuky",
+      "art": "hoodie",
+      "price": 78,
+      "featured": true,
+      "name": {
+        "es": "Hoodie Alpha Kuky",
+        "en": "Kuky Alpha Hoodie"
+      },
+      "desc": {
+        "es": "Hoodie oversized en felpa de 420 gsm con bordado frontal de Kuky. Suave por dentro, imponente por fuera.",
+        "en": "Oversized 420 gsm fleece hoodie with Kuky front embroidery. Soft inside, commanding outside."
+      },
+      "img": ""
+    },
+    {
+      "id": "p2",
+      "col": "kuky",
+      "art": "tee",
+      "price": 38,
+      "featured": false,
+      "name": {
+        "es": "Tee Mirada Kuky",
+        "en": "Kuky Stare Tee"
+      },
+      "desc": {
+        "es": "Camiseta de algodón pima con la mirada inconfundible de Kuky serigrafiada al pecho.",
+        "en": "Pima cotton tee with Kuky's unmistakable stare screen-printed on the chest."
+      },
+      "img": ""
+    },
+    {
+      "id": "p3",
+      "col": "canelo",
+      "art": "crew",
+      "price": 64,
+      "featured": true,
+      "name": {
+        "es": "Crewneck Canela",
+        "en": "Cinnamon Crewneck"
+      },
+      "desc": {
+        "es": "Sudadera cuello redondo en tono canela con interior perchado. El abrazo favorito de Canelo, hecho prenda.",
+        "en": "Cinnamon-tone crewneck with brushed interior. Canelo's favorite hug, turned into a garment."
+      },
+      "img": ""
+    },
+    {
+      "id": "p4",
+      "col": "canelo",
+      "art": "cap",
+      "price": 32,
+      "featured": false,
+      "sizes": [
+        "M",
+        "L"
+      ],
+      "name": {
+        "es": "Gorra Snack Time",
+        "en": "Snack Time Cap"
+      },
+      "desc": {
+        "es": "Gorra de perfil bajo con bordado de galleta y orejas. Para días de snacks y siestas.",
+        "en": "Low-profile cap with cookie-and-ears embroidery. For snack-and-nap days."
+      },
+      "img": ""
+    },
+    {
+      "id": "p5",
+      "col": "kira",
+      "art": "hoodie",
+      "price": 78,
+      "featured": true,
+      "name": {
+        "es": "Hoodie Salvia Kira",
+        "en": "Kira Sage Hoodie"
+      },
+      "desc": {
+        "es": "Hoodie en verde salvia con bordado tonal. Tan tranquilo y elegante como Kira.",
+        "en": "Sage green hoodie with tonal embroidery. As calm and elegant as Kira herself."
+      },
+      "img": ""
+    },
+    {
+      "id": "p6",
+      "col": "kira",
+      "art": "tee",
+      "price": 36,
+      "featured": false,
+      "name": {
+        "es": "Tee Piedra Kira",
+        "en": "Kira Stone Tee"
+      },
+      "desc": {
+        "es": "Camiseta relajada en gris piedra con mini logo bordado. El básico perfecto.",
+        "en": "Relaxed stone-gray tee with mini embroidered logo. The perfect basic."
+      },
+      "img": ""
+    },
+    {
+      "id": "p7",
+      "col": "original",
+      "art": "hoodie",
+      "price": 82,
+      "featured": true,
+      "name": {
+        "es": "Hoodie Original Noir",
+        "en": "Original Noir Hoodie"
+      },
+      "desc": {
+        "es": "El hoodie insignia: negro profundo, logo GM Basics en pecho y huella en la capucha.",
+        "en": "The flagship hoodie: deep black, GM Basics chest logo and paw print inside the hood."
+      },
+      "img": ""
+    },
+    {
+      "id": "p8",
+      "col": "original",
+      "art": "crew",
+      "price": 62,
+      "featured": false,
+      "name": {
+        "es": "Crewneck Hueso",
+        "en": "Bone Crewneck"
+      },
+      "desc": {
+        "es": "Sudadera en tono hueso con logotipo discreto. Combina con absolutamente todo.",
+        "en": "Bone-tone crewneck with a discreet logotype. Goes with absolutely everything."
+      },
+      "img": ""
+    },
+    {
+      "id": "p9",
+      "col": "frenchie",
+      "art": "tee",
+      "price": 40,
+      "featured": true,
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "name": {
+        "es": "Tee Frenchie Club",
+        "en": "Frenchie Club Tee"
+      },
+      "desc": {
+        "es": "Camiseta con gráfico retro del club frenchie. Membresía de por vida incluida.",
+        "en": "Tee with a retro frenchie club graphic. Lifetime membership included."
+      },
+      "img": ""
+    },
+    {
+      "id": "p10",
+      "col": "frenchie",
+      "art": "cap",
+      "price": 30,
+      "featured": false,
+      "name": {
+        "es": "Gorra Orejas Arriba",
+        "en": "Ears Up Cap"
+      },
+      "desc": {
+        "es": "Gorra azul cielo con bordado de orejas de murciélago. El saludo oficial de la raza.",
+        "en": "Sky blue cap with bat-ears embroidery. The breed's official salute."
+      },
+      "img": ""
+    },
+    {
+      "id": "p11",
+      "col": "personalizable",
+      "art": "hoodie",
+      "price": 95,
+      "featured": true,
+      "name": {
+        "es": "Hoodie a tu medida",
+        "en": "Made-for-You Hoodie"
+      },
+      "desc": {
+        "es": "Elige color, nombre y retrato de tu frenchie bordado. Cada pieza es única e irrepetible.",
+        "en": "Pick the color, name and embroidered portrait of your frenchie. Every piece is one of a kind."
+      },
+      "img": ""
+    },
+    {
+      "id": "p12",
+      "col": "personalizable",
+      "art": "tee",
+      "price": 48,
+      "featured": false,
+      "name": {
+        "es": "Tee con tu retrato",
+        "en": "Your Portrait Tee"
+      },
+      "desc": {
+        "es": "Sube la foto de tu perro y la convertimos en ilustración premium estampada.",
+        "en": "Upload your dog's photo and we turn it into a premium printed illustration."
+      },
+      "img": ""
+    },
+    {
+      "id": "p13",
+      "col": "futbol",
+      "art": "jersey",
+      "price": 68,
+      "featured": true,
+      "sizes": [
+        "M",
+        "L",
+        "XL"
+      ],
+      "name": {
+        "es": "Jersey Manada FC",
+        "en": "Manada FC Jersey"
+      },
+      "desc": {
+        "es": "Jersey de fútbol con tejido transpirable, número 10 y escudo de la manada.",
+        "en": "Breathable football jersey with the number 10 and the pack's crest."
+      },
+      "img": ""
+    },
+    {
+      "id": "p14",
+      "col": "futbol",
+      "art": "tee",
+      "price": 42,
+      "featured": false,
+      "name": {
+        "es": "Tee Tercer Tiempo",
+        "en": "Third Half Tee"
+      },
+      "desc": {
+        "es": "Camiseta verde cancha para antes, durante y después del partido.",
+        "en": "Pitch-green tee for before, during and after the match."
+      },
+      "img": ""
+    }
+  ],
+  "services": [
+    {
+      "id": "smm",
+      "icon": "chat",
+      "name": {
+        "es": "Social Media Management",
+        "en": "Social Media Management"
+      },
+      "desc": {
+        "es": "Calendario, publicación y comunidad. Tus redes activas y con propósito, todos los días.",
+        "en": "Calendar, publishing and community. Your channels active and purposeful, every day."
+      }
+    },
+    {
+      "id": "brand",
+      "icon": "gem",
+      "name": {
+        "es": "Branding",
+        "en": "Branding"
+      },
+      "desc": {
+        "es": "Naming, logo, paleta, voz y manual de marca. La base sólida de todo lo demás.",
+        "en": "Naming, logo, palette, voice and brand guidelines. The solid base for everything else."
+      }
+    },
+    {
+      "id": "design",
+      "icon": "pen",
+      "name": {
+        "es": "Diseño Gráfico",
+        "en": "Graphic Design"
+      },
+      "desc": {
+        "es": "Piezas para redes, empaques, menús y material impreso que se ven de marca grande.",
+        "en": "Social assets, packaging, menus and print that look big-brand."
+      }
+    },
+    {
+      "id": "ads",
+      "icon": "target",
+      "name": {
+        "es": "Publicidad",
+        "en": "Advertising"
+      },
+      "desc": {
+        "es": "Campañas en Meta y Google con creatividad que detiene el scroll y métricas claras.",
+        "en": "Meta and Google campaigns with scroll-stopping creative and clear metrics."
+      }
+    },
+    {
+      "id": "content",
+      "icon": "cam",
+      "name": {
+        "es": "Creación de Contenido",
+        "en": "Content Creation"
+      },
+      "desc": {
+        "es": "Foto y video con dirección de arte: reels, producto y lifestyle listos para publicar.",
+        "en": "Art-directed photo and video: reels, product and lifestyle, ready to post."
+      }
+    },
+    {
+      "id": "strategy",
+      "icon": "map",
+      "name": {
+        "es": "Estrategia de Marketing",
+        "en": "Marketing Strategy"
+      },
+      "desc": {
+        "es": "Plan trimestral con objetivos, canales y presupuesto. Saber a dónde vas antes de correr.",
+        "en": "Quarterly plan with goals, channels and budget. Know where you're going before you run."
+      }
+    }
+  ],
+  "plans": [
+    {
+      "id": "start",
+      "price": 490,
+      "featured": false,
+      "name": {
+        "es": "Inicio",
+        "en": "Starter"
+      },
+      "items": {
+        "es": [
+          "12 publicaciones al mes",
+          "2 reels mensuales",
+          "Diseño de plantillas",
+          "Reporte mensual"
+        ],
+        "en": [
+          "12 posts per month",
+          "2 monthly reels",
+          "Template design",
+          "Monthly report"
+        ]
+      }
+    },
+    {
+      "id": "growth",
+      "price": 890,
+      "featured": true,
+      "name": {
+        "es": "Crecimiento",
+        "en": "Growth"
+      },
+      "items": {
+        "es": [
+          "20 publicaciones al mes",
+          "6 reels mensuales",
+          "Gestión de comunidad",
+          "Pauta publicitaria incluida",
+          "Sesión de contenido mensual",
+          "Reporte quincenal"
+        ],
+        "en": [
+          "20 posts per month",
+          "6 monthly reels",
+          "Community management",
+          "Paid ads included",
+          "Monthly content session",
+          "Bi-weekly report"
+        ]
+      }
+    },
+    {
+      "id": "pro",
+      "price": 1490,
+      "featured": false,
+      "name": {
+        "es": "Marca Total",
+        "en": "Full Brand"
+      },
+      "items": {
+        "es": [
+          "Todo el plan Crecimiento",
+          "Branding y rebranding",
+          "Campañas en Meta y Google",
+          "Producción foto y video",
+          "Estratega dedicado"
+        ],
+        "en": [
+          "Everything in Growth",
+          "Branding & rebranding",
+          "Meta & Google campaigns",
+          "Photo & video production",
+          "Dedicated strategist"
+        ]
+      }
+    }
+  ],
+  "portfolio": [
+    {
+      "id": "pf1",
+      "c1": "#B4541B",
+      "c2": "#F4D8BC",
+      "tag": {
+        "es": "Branding · Café",
+        "en": "Branding · Coffee"
+      },
+      "name": {
+        "es": "Tueste Hermanos",
+        "en": "Tueste Hermanos"
+      },
+      "img": ""
+    },
+    {
+      "id": "pf2",
+      "c1": "#3E5C76",
+      "c2": "#CFE3F2",
+      "tag": {
+        "es": "Social Media · Fitness",
+        "en": "Social media · Fitness"
+      },
+      "name": {
+        "es": "Vita Gym Club",
+        "en": "Vita Gym Club"
+      },
+      "img": ""
+    },
+    {
+      "id": "pf3",
+      "c1": "#1E7A46",
+      "c2": "#CDEBD6",
+      "tag": {
+        "es": "Campaña · Restaurante",
+        "en": "Campaign · Restaurant"
+      },
+      "name": {
+        "es": "La Cancha Grill",
+        "en": "La Cancha Grill"
+      },
+      "img": ""
+    },
+    {
+      "id": "pf4",
+      "c1": "#7A4E8C",
+      "c2": "#E6D6F0",
+      "tag": {
+        "es": "Contenido · Belleza",
+        "en": "Content · Beauty"
+      },
+      "name": {
+        "es": "Lila Beauty Bar",
+        "en": "Lila Beauty Bar"
+      },
+      "img": ""
+    },
+    {
+      "id": "pf5",
+      "c1": "#8A5A2B",
+      "c2": "#EFDCBD",
+      "tag": {
+        "es": "E-commerce · Mascotas",
+        "en": "E-commerce · Pets"
+      },
+      "name": {
+        "es": "GM Basics Shop",
+        "en": "GM Basics Shop"
+      },
+      "img": ""
+    },
+    {
+      "id": "pf6",
+      "c1": "#5C6B5E",
+      "c2": "#DCE6D8",
+      "tag": {
+        "es": "Identidad · Bienes raíces",
+        "en": "Identity · Real estate"
+      },
+      "name": {
+        "es": "Palma Realty",
+        "en": "Palma Realty"
+      },
+      "img": ""
+    }
+  ]
+}
